@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UDAY KUMAR G // SYSTEM_v5.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -17,6 +17,7 @@
             --surface: rgba(255, 255, 255, 0.02);
             --border: rgba(0, 255, 170, 0.2);
             --border-dim: rgba(255, 255, 255, 0.05);
+            --nav-height: 65px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -30,9 +31,29 @@
             width: 100vw;
         }
 
-        /* Custom Cursor */
-        #cursor { width: 4px; height: 4px; background: var(--accent); position: fixed; pointer-events: none; z-index: 10000; box-shadow: 0 0 10px var(--accent); }
-        #cursor-follower { width: 30px; height: 30px; border: 1px solid var(--border); position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out; border-radius: 2px; }
+        /* Modern Glowing Cursor */
+        #cursor { 
+            width: 8px; 
+            height: 8px; 
+            background: var(--accent); 
+            border-radius: 50%; 
+            position: fixed; 
+            pointer-events: none; 
+            z-index: 10000; 
+            box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+            mix-blend-mode: difference;
+        }
+        #cursor-follower { 
+            width: 40px; 
+            height: 40px; 
+            border: 1px solid var(--accent); 
+            border-radius: 50%; 
+            position: fixed; 
+            pointer-events: none; 
+            z-index: 9999; 
+            opacity: 0.3;
+            transition: transform 0.1s ease-out, opacity 0.2s; 
+        }
 
         /* Background */
         #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.25; }
@@ -259,13 +280,6 @@
         @keyframes blink { 50% { opacity: 0; } }
         .cursor-blink { animation: blink 1s step-end infinite; }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .terminal-grid { grid-template-columns: 80px 1fr 0px; }
-            .nav-text, .panel:last-child { display: none; }
-            .view-container { padding: 24px; }
-        }
-
         .video-webview-container {
             width: 100%;
             height: 100%;
@@ -281,11 +295,231 @@
             max-height: 100%;
         }
 
-        /* Leetcode SVG adjustment */
         .leetcode-icon {
             width: 16px;
             height: 16px;
             fill: currentColor;
+        }
+
+        /* -------------------------------------------
+           PROFESSIONAL MOBILE OPTIMIZATIONS
+           Breakpoints: Tablet (<1024px) and Phone (<768px)
+           ------------------------------------------- */
+        
+        @media (max-width: 1024px) {
+            .terminal-grid { 
+                grid-template-columns: 80px 1fr 0px; 
+                /* Tablet View: Compact Sidebar, Content, Hidden Right Panel */
+            }
+            .nav-text { display: none; }
+            .panel:nth-child(4) { display: none; } /* Hide Right Stats */
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow: auto; /* Allow native body scroll on mobile if needed, though we use container scroll */
+            }
+
+            .terminal-grid {
+                display: flex;
+                flex-direction: column;
+                height: 100dvh; /* Dynamic Height for Mobile Browsers */
+                width: 100%;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+
+            /* 1. Header: Compact and Fixed at Top */
+            .terminal-grid > header {
+                height: 50px;
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                background: rgba(2, 2, 2, 0.95);
+                backdrop-filter: blur(5px);
+                border-bottom: 1px solid var(--border-dim);
+            }
+
+            /* 2. Content: Main view takes all space */
+            .panel:nth-child(3) { /* Main Content */
+                flex: 1;
+                width: 100%;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: calc(var(--nav-height) + 20px); /* Padding for Bottom Nav */
+            }
+
+            .view-container {
+                padding: 24px 16px;
+                max-width: 100%;
+            }
+
+            /* 3. Navigation: Converts to Bottom Bar */
+            .panel:nth-child(2) { /* Originally Sidebar */
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: var(--nav-height);
+                z-index: 100;
+                border-top: 1px solid var(--border-dim);
+                border-right: none;
+                background: #000;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .panel:nth-child(2) .panel-header, 
+            .panel:nth-child(2) .p-6 { /* Hide sidebar title & external links section */
+                display: none;
+            }
+
+            .panel:nth-child(2) nav {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                height: 100%;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .nav-link {
+                flex-direction: column;
+                justify-content: center;
+                gap: 5px;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                border-left: none;
+                border-top: 2px solid transparent;
+                background: transparent;
+            }
+
+            .nav-link i {
+                width: 16px; /* Smaller icons on mobile to fit text */
+                height: 16px;
+            }
+
+            .nav-link .nav-text {
+                display: block; /* Show text in bottom bar */
+                font-size: 8px; /* Smaller text to fit full names */
+                letter-spacing: 0;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 70px; /* Prevent spillover */
+            }
+
+            .nav-link.active {
+                border-top-color: var(--accent);
+                background: linear-gradient(180deg, rgba(0, 255, 170, 0.1) 0%, transparent 100%);
+                border-left: none;
+                color: var(--accent);
+            }
+
+            /* 4. Hide Unused Panels */
+            .panel:nth-child(4) { display: none; } /* Right Panel */
+            .terminal-grid > footer { display: none; } /* Bottom Status Bar */
+
+            /* 5. Typography & Layout Fixes */
+            h1.text-8xl { font-size: 3rem; line-height: 1; }
+            h2.text-6xl { font-size: 2.5rem; }
+            h2.text-5xl { font-size: 2rem; }
+            
+            /* Skill Matrix Mobile */
+            .skill-matrix {
+                grid-template-columns: 1fr 1fr;
+            }
+            .skill-item {
+                padding: 16px;
+            }
+
+            /* Projects List Mobile */
+            .ls-row {
+                /* Changed to 1fr auto to give max space to name and show ID */
+                grid-template-columns: 1fr auto; 
+                gap: 10px;
+                padding: 16px 10px;
+            }
+            /* Hide non-essential columns on mobile */
+            .ls-row > *:nth-child(1), /* Permissions */
+            .ls-row > *:nth-child(2), /* Links (hidden by md:block already but safe to add) */
+            .ls-row > *:nth-child(3), /* Owner */
+            .ls-row > *:nth-child(4) { /* Size */
+                display: none;
+            }
+            
+            .ls-row.header > *:nth-child(2), /* Hide Header Links */
+            .ls-row.header > *:nth-child(5) { /* Keep Deployment_Name visible? No, indices shift. */
+               /* Header indices: 1:Perms, 2:Links, 3:Owner, 4:Size, 5:Name, 6:ID */
+               /* We want to keep 5 and 6 */
+            }
+            .ls-row.header > *:nth-child(1),
+            .ls-row.header > *:nth-child(2),
+            .ls-row.header > *:nth-child(3),
+            .ls-row.header > *:nth-child(4) {
+               display: none;
+            }
+
+            .ls-name {
+                font-size: 13px;
+                word-break: break-all;
+            }
+
+            /* Resume Fixes */
+            .resume-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .resume-header h1 {
+                font-size: 2.5rem;
+            }
+            .resume-section .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Remove absolute rotated text that might overlap */
+            .absolute.origin-top-right {
+                display: none;
+            }
+            
+            /* Adjust Modal */
+            #project-modal {
+                padding: 0;
+                align-items: flex-end; /* Sheet style or full screen */
+            }
+            #project-modal > div {
+                height: 100%;
+                border: none;
+                border-radius: 0;
+                flex-direction: column !important; /* Force column layout on mobile */
+            }
+            
+            /* Mobile Modal Specifics */
+            #project-modal .w-full.md\:w-\[68\%\] {
+                width: 100% !important;
+                height: 40% !important; /* Video takes top 40% */
+                flex: none;
+            }
+            
+            #project-modal .w-full.md\:w-\[32\%\] {
+                width: 100% !important;
+                height: 60% !important; /* Details take bottom 60% */
+                flex: 1;
+            }
+
+            /* Note styling */
+            .mobile-note {
+                font-size: 10px;
+                padding: 10px;
+                background: rgba(255,255,255,0.05);
+                border-left: 2px solid var(--accent);
+                margin-bottom: 24px;
+            }
         }
     </style>
 </head>
@@ -311,16 +545,16 @@
                         <span class="text-[#5070a8]">G</span>
                     </div>
                 </div>
-                <div class="h-4 w-[1px] bg-white/10"></div>
-                <span class="text-[9px] text-gray-500 mono uppercase tracking-widest">Uplink: Synchronized</span>
+                <div class="hidden md:block h-4 w-[1px] bg-white/10"></div>
+                <span class="hidden md:block text-[9px] text-gray-500 mono uppercase tracking-widest">Uplink: Synchronized</span>
             </div>
             <div class="flex gap-8 items-center mono text-[10px]">
-                <div class="text-gray-500"><span class="text-gray-700">LATENCY:</span> 14ms</div>
+                <div class="hidden md:block text-gray-500"><span class="text-gray-700">LATENCY:</span> 14ms</div>
                 <div id="clock" class="text-accent tabular-nums">00:00:00</div>
             </div>
         </header>
 
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar Navigation (Desktop) / Bottom Bar (Mobile) -->
         <aside class="panel">
             <div class="panel-header"><span>Navigation</span><i data-lucide="menu" class="w-3 h-3"></i></div>
             <nav class="flex-1 mt-2">
@@ -349,6 +583,7 @@
                 <div class="mono text-[8px] text-gray-600 uppercase mb-4 tracking-widest">External Links</div>
                 <div class="flex gap-5">
                     <a href="https://linkedin.com/in/udaykumar-g-b0a990264/" target="_blank" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <!-- Mailto without target blank for native behavior -->
                     <a href="mailto:uday242004@gmail.com" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
                     <a href="https://leetcode.com/u/Knight_2031/" target="_blank" class="text-gray-500 hover:text-accent transition-colors" title="LeetCode Profile">
                         <svg class="leetcode-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -380,7 +615,31 @@
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-px bg-white/10 border border-white/10">
+                    <!-- MOBILE SOCIAL LINKS (Visible only on mobile) -->
+                    <div class="md:hidden flex flex-wrap gap-4 mb-12">
+                        <a href="https://linkedin.com/in/udaykumar-g-b0a990264/" target="_blank" class="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded hover:border-accent transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-xs text-gray-300 mono uppercase">LinkedIn</span>
+                        </a>
+                        <!-- Mailto without target blank for native behavior -->
+                        <a href="mailto:uday242004@gmail.com" class="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded hover:border-accent transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-xs text-gray-300 mono uppercase">Email</span>
+                        </a>
+                        <a href="https://leetcode.com/u/Knight_2031/" target="_blank" class="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded hover:border-accent transition-colors">
+                            <svg class="w-5 h-5 text-gray-400 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L14.444.414A1.374 1.374 0 0 0 13.483 0zm-7.46 4.733a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L6.982 5.147a1.374 1.374 0 0 0-.96-.414zm13.483 8.79a1.374 1.374 0 0 0-.96.415l-4.378 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L14.443 13.94a1.374 1.374 0 0 0-.96-.415zm-7.46 4.733a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L6.982 18.67a1.374 1.374 0 0 0-.96-.414z"/>
+                            </svg>
+                            <span class="text-xs text-gray-300 mono uppercase">LeetCode</span>
+                        </a>
+                    </div>
+
+                    <!-- MOBILE SYSTEM NOTE REPLACING LIVE CONSOLE -->
+                    <div class="md:hidden mobile-note">
+                        <p class="mono italic"># SYSTEM_NOTE: FULL_CONSOLE_ACCESS_RESTRICTED_TO_DESKTOP // 400x800</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
                         <div class="p-10 bg-black">
                             <span class="mono text-[10px] text-accent uppercase tracking-widest block mb-4">Intellectual Asset</span>
                             <h3 class="text-xl font-bold text-white mb-2 uppercase">Patent Holder</h3>
@@ -464,17 +723,17 @@
                     </div>
                     <div class="ls-row" onclick="openProject('visuweave')">
                         <span class="mono text-accent">drwxr-xr-x</span>
-                        <span>2</span>
-                        <span>uday</span>
-                        <span>4.2 MB</span>
+                        <span class="hidden md:block">2</span>
+                        <span class="hidden md:block">uday</span>
+                        <span class="hidden md:block">4.2 MB</span>
                         <span class="ls-name">VisuWeave.bin</span>
                         <span class="text-right">01</span>
                     </div>
                     <div class="ls-row" onclick="openProject('ecovista')">
                         <span class="mono text-accent">drwxr-xr-x</span>
-                        <span>4</span>
-                        <span>uday</span>
-                        <span>12.8 MB</span>
+                        <span class="hidden md:block">4</span>
+                        <span class="hidden md:block">uday</span>
+                        <span class="hidden md:block">12.8 MB</span>
                         <span class="ls-name">EcoVista.bin</span>
                         <span class="text-right">02</span>
                     </div>
@@ -483,7 +742,7 @@
 
             <div id="view-github" class="view view-container">
                 <div class="w-full">
-                    <div class="flex items-center justify-between mb-10">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
                         <div class="flex items-center gap-6">
                             <div class="flex items-center mono font-black text-2xl tracking-widest">
                                 <span class="text-[#a85050]">U</span><span class="text-white/10">.</span><span class="text-[#50a880]">K</span><span class="text-white/10">.</span><span class="text-[#5070a8]">G</span>
@@ -491,7 +750,7 @@
                             <div class="h-8 w-[1px] bg-white/10"></div>
                             <span class="text-accent mono text-[10px] uppercase tracking-widest">Global_Sync: UDAY2031</span>
                         </div>
-                        <a href="https://github.com/UDAY2031" target="_blank" class="px-10 py-4 bg-white text-black font-bold mono text-[10px] uppercase hover:bg-accent hover:text-black transition-all">
+                        <a href="https://github.com/UDAY2031" target="_blank" class="w-full md:w-auto text-center px-10 py-4 bg-white text-black font-bold mono text-[10px] uppercase hover:bg-accent hover:text-black transition-all">
                             Open Profile
                         </a>
                     </div>
@@ -523,7 +782,8 @@
                                     <li class="flex items-center gap-3"><span class="text-accent text-xl">🔭</span> I’m currently working on <strong class="text-white">MINI PROJECTS</strong></li>
                                     <li class="flex items-center gap-3"><span class="text-accent text-xl">🌱</span> I’m currently learning <strong class="text-white">MACHINE LEARNING, DATA NETWORKS</strong></li>
                                     <li class="flex items-center gap-3"><span class="text-accent text-xl">💬</span> Ask me about <strong class="text-white">CNN, MACHINE LEARNING, NEURAL NETWORK</strong></li>
-                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">📫</span> How to reach me <strong class="text-white">yellowflash2031@gmail.com</strong></li>
+                                    <!-- Mailto without target blank for native behavior -->
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">📫</span> How to reach me <a href="mailto:yellowflash2031@gmail.com" class="text-white font-bold hover:text-accent transition-colors">yellowflash2031@gmail.com</a></li>
                                     <li class="flex items-center gap-3"><span class="text-accent text-xl">⚡</span> Fun fact: <strong class="text-white">404: Seriousness not found.</strong></li>
                                 </ul>
 
@@ -555,7 +815,7 @@
                             <!-- Connect -->
                             <div class="space-y-8">
                                 <h3 class="text-xl font-bold border-none !p-0">Connect with me:</h3>
-                                <div class="flex gap-8">
+                                <div class="flex flex-wrap gap-8">
                                     <a href="https://linkedin.com/in/uday-kumar-g-3956312a4/" target="_blank" class="hover:scale-125 transition-transform">
                                         <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" height="30" width="40" />
                                     </a>
@@ -606,26 +866,27 @@
 
             <!-- VIEW: RESUME -->
             <div id="view-resume" class="view view-container">
-                <div class="flex justify-between items-end mb-16">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
                     <div>
                         <p class="mono text-accent text-[10px] mb-2 uppercase tracking-widest">Protocol: PROFESSIONAL_DOSSIER // Encrypted_Uplink</p>
                         <h2 class="text-6xl font-black uppercase tracking-tighter">Resume</h2>
                     </div>
                     <!-- Download Link Re-styled to be Vibrant Neon Green with Black Text -->
-                    <a href="https://github.com/UDAY2031/Projects_demo_UI/raw/0a33d938a46b3e9e5e6a3e1088e8e41c24c5d92e/Uday_resume.pdf" target="_blank" class="px-12 py-5 bg-[#00ffaa] text-[#020202] font-black mono text-[11px] uppercase shadow-[0_0_25px_rgba(0,255,170,0.5)] hover:scale-105 transition-transform flex items-center gap-3 border border-accent">
+                    <a href="https://github.com/UDAY2031/Projects_demo_UI/raw/0a33d938a46b3e9e5e6a3e1088e8e41c24c5d92e/Uday_resume.pdf" target="_blank" class="w-full md:w-auto text-center px-12 py-5 bg-[#00ffaa] text-[#020202] font-black mono text-[11px] uppercase shadow-[0_0_25px_rgba(0,255,170,0.5)] hover:scale-105 transition-transform flex items-center justify-center gap-3 border border-accent">
                         <i data-lucide="download" class="w-4 h-4"></i>
                         Download_Artifact.pdf
                     </a>
                 </div>
 
-                <div class="border border-white/10 p-16 space-y-20 bg-black/60 relative overflow-hidden">
+                <div class="border border-white/10 p-6 md:p-16 space-y-20 bg-black/60 relative overflow-hidden">
                     <div class="absolute top-0 right-0 p-8 mono text-[8px] text-white/5 uppercase select-none tracking-[0.4em] transform rotate-90 origin-top-right">SECURE DATA ACCESS // RFC 7519</div>
                     
                     <!-- Header Info -->
                     <div class="resume-header">
                         <h1 class="text-5xl font-black text-white uppercase mb-4 tracking-tighter leading-none">Uday Kumar G</h1>
-                        <div class="flex flex-wrap gap-10 mono text-xs text-gray-500 uppercase tracking-widest mt-6">
-                            <span class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> uday242004@gmail.com</span>
+                        <div class="flex flex-wrap gap-4 md:gap-10 mono text-xs text-gray-500 uppercase tracking-widest mt-6">
+                            <!-- Mailto without target blank for native behavior -->
+                            <a href="mailto:uday242004@gmail.com" class="flex items-center gap-3 hover:text-accent transition-colors"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> uday242004@gmail.com</a>
                             <span class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-accent"></i> (+91) 9663487366</span>
                             <span class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-accent"></i> Bangalore, India</span>
                         </div>
@@ -635,12 +896,12 @@
                     <div class="resume-section">
                         <h3 class="resume-section-title">Experience_Log</h3>
                         <div class="resume-entry">
-                            <div class="flex justify-between items-baseline mb-8">
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-baseline mb-8">
                                 <div>
                                     <h4 class="text-3xl font-bold text-white uppercase tracking-tight">Unisys</h4>
                                     <p class="text-accent mono text-[11px] mt-2 uppercase tracking-widest font-bold">Summer Intern (Hybrid)</p>
                                 </div>
-                                <span class="mono text-sm text-gray-600">JUL 2024 - AUG 2024</span>
+                                <span class="mono text-sm text-gray-600 mt-2 md:mt-0">JUL 2024 - AUG 2024</span>
                             </div>
                             <div class="space-y-6">
                                 <p class="resume-bullet">Developed a fully automated Power BI reporting pipeline using Python, Selenium, and WebDriver, eliminating the need for daily manual report generation.</p>
@@ -674,14 +935,14 @@
                     <div class="resume-section">
                         <h3 class="resume-section-title">Academic_Protocol</h3>
                         <div class="resume-entry">
-                            <div class="flex justify-between items-baseline mb-6">
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-baseline mb-6">
                                 <div>
                                     <h4 class="text-2xl font-bold text-white uppercase tracking-tight">Ramaiah Institute of Technology</h4>
                                     <p class="text-gray-400 text-sm mt-2 uppercase tracking-widest">B.E. in Artificial Intelligence and Machine Learning</p>
                                 </div>
-                                <span class="mono text-sm text-gray-600">2022 - 2026 (EXPECTED)</span>
+                                <span class="mono text-sm text-gray-600 mt-2 md:mt-0">2022 - 2026 (EXPECTED)</span>
                             </div>
-                            <div class="p-8 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-between max-w-md">
+                            <div class="p-8 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-between max-w-md w-full">
                                 <div class="space-y-1">
                                     <span class="mono text-[9px] text-gray-600 uppercase tracking-widest block">Performance_Index</span>
                                     <span class="text-accent text-4xl font-black tracking-tighter">8.92</span>
@@ -867,9 +1128,20 @@
             entry.className = `log-entry ${type}`;
             const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
             entry.innerHTML = `<span class="text-gray-800">[${time}]</span> ${text}`;
-            consoleFeed.appendChild(entry); // Append to the bottom
-            consoleFeed.scrollTop = consoleFeed.scrollHeight; // Auto-scroll to bottom
+            
+            // Append to Desktop Feed
+            consoleFeed.appendChild(entry); 
+            consoleFeed.scrollTop = consoleFeed.scrollHeight; 
             if (consoleFeed.children.length > 50) consoleFeed.firstChild.remove();
+
+            // Append to Mobile Feed (if present)
+            const mobileFeed = document.getElementById('mobile-console-feed');
+            if (mobileFeed) {
+                const mobileEntry = entry.cloneNode(true);
+                mobileFeed.appendChild(mobileEntry);
+                mobileFeed.scrollTop = mobileFeed.scrollHeight;
+                if (mobileFeed.children.length > 50) mobileFeed.firstChild.remove();
+            }
         };
 
         const bootSequence = () => {
