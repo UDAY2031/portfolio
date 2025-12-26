@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDAY KUMAR G // SYSTEM_v5.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020202;
+            --accent: #00ffaa;
+            --text: #e0e0e0;
+            --surface: rgba(255, 255, 255, 0.02);
+            --border: rgba(0, 255, 170, 0.2);
+            --border-dim: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Custom Cursor */
+        #cursor { width: 4px; height: 4px; background: var(--accent); position: fixed; pointer-events: none; z-index: 10000; box-shadow: 0 0 10px var(--accent); }
+        #cursor-follower { width: 30px; height: 30px; border: 1px solid var(--border); position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out; border-radius: 2px; }
+
+        /* Background */
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.25; }
+
+        /* System Interface Layout - Perfectly Aligned Grid */
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr 320px;
+            grid-template-rows: 50px 1fr 35px;
+            height: 100vh;
+            width: 100vw;
+            background: var(--border-dim);
+            gap: 1px;
+        }
+
+        .panel { 
+            background: var(--bg); 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .panel-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-dim);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.01);
+            min-height: 40px;
+        }
+
+        /* Navigation */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            font-size: 11px;
+            color: #666;
+            border-left: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            width: 100%;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent);
+            background: rgba(0, 255, 170, 0.05);
+            border-left-color: var(--accent);
+        }
+
+        /* Content Area */
+        .view-container { 
+            flex: 1;
+            padding: 48px; 
+            overflow-y: auto; 
+            position: relative; 
+            scroll-behavior: smooth;
+        }
+        .view-container::-webkit-scrollbar { width: 3px; }
+        .view-container::-webkit-scrollbar-thumb { background: var(--border); }
+        
+        .view { display: none; opacity: 0; width: 100%; max-width: 1000px; margin: 0 auto; }
+        .view.active { display: block; opacity: 1; }
+
+        /* Codex Style Skill Matrix */
+        .skill-matrix { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 1px; 
+            background: var(--border-dim);
+            border: 1px solid var(--border-dim);
+        }
+        .skill-item {
+            background: var(--bg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .skill-item:hover {
+            background: rgba(0,255,170,0.02);
+            z-index: 1;
+            box-shadow: inset 0 0 0 1px var(--accent);
+        }
+        .skill-val { font-size: 9px; color: #444; }
+
+        /* Linux Terminal Project Row - Fixed Alignment */
+        .ls-row {
+            display: grid;
+            grid-template-columns: 100px 40px 60px 80px 1fr 40px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-dim);
+            align-items: center;
+            font-size: 11px;
+            color: #555;
+            transition: 0.15s;
+            cursor: pointer;
+        }
+        .ls-row:hover { 
+            background: rgba(0, 255, 170, 0.03); 
+            color: var(--accent);
+        }
+        .ls-row.header {
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.02);
+            pointer-events: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .ls-name { color: #fff; font-weight: bold; }
+        .ls-row:hover .ls-name { color: var(--accent); }
+
+        /* GitHub Profile Styles */
+        .readme-container {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-dim);
+            padding: 3rem;
+            margin-top: 1rem;
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+        .readme-container h1, .readme-container h2, .readme-container h3 { 
+            color: #fff; 
+            border-bottom: 1px solid var(--border-dim); 
+            padding-bottom: 0.5rem; 
+            margin-bottom: 1.5rem; 
+        }
+        .readme-container h1 { border: none; }
+        .readme-container hr { border-color: var(--border-dim); margin: 2.5rem 0; }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-dim);
+            font-size: 10px;
+            color: var(--accent);
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Resume Content Alignment */
+        .resume-header {
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .resume-section {
+            margin-bottom: 3rem;
+        }
+        .resume-section-title {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .resume-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-dim);
+        }
+        .resume-entry {
+            margin-bottom: 2rem;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-dim);
+        }
+        .resume-entry:hover {
+            border-left-color: var(--accent);
+        }
+        .resume-bullet {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 14px;
+            color: #888;
+        }
+        .resume-bullet::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* Console Sidebar logs */
+        #console-feed { 
+            padding: 15px; 
+            font-size: 10px; 
+            color: #555; 
+            line-height: 1.6; 
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .log-entry { margin-bottom: 6px; border-left: 1px solid #222; padding-left: 8px; flex-shrink: 0; }
+        .log-entry.success { color: var(--accent); border-left-color: var(--accent); }
+        .log-entry.info { color: #00aaff; border-left-color: #00aaff; }
+        .log-entry.cmd { color: #fff; border-left-color: #555; font-weight: bold; }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed; inset: 0; pointer-events: none; z-index: 1000;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
+            background-size: 100% 4px;
+        }
+        
+        @keyframes blink { 50% { opacity: 0; } }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .terminal-grid { grid-template-columns: 80px 1fr 0px; }
+            .nav-text, .panel:last-child { display: none; }
+            .view-container { padding: 24px; }
+        }
+
+        .video-webview-container {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Leetcode SVG adjustment */
+        .leetcode-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+    <div class="scanlines"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="terminal-grid">
+        <!-- Top Navigation Bar -->
+        <header class="panel col-span-3 flex flex-row items-center px-6 justify-between border-b border-white/5">
+            <div class="flex items-center gap-6">
+                <!-- Muted RGB Styled Logo -->
+                <div class="flex items-center gap-3">
+                    <span class="w-2 h-2 bg-accent/40 rounded-full animate-pulse shadow-[0_0_8px_rgba(0,255,170,0.2)]"></span>
+                    <div class="flex items-center mono font-black text-sm tracking-widest opacity-80">
+                        <span class="text-[#a85050]">U</span>
+                        <span class="text-white/10">.</span>
+                        <span class="text-[#50a880]">K</span>
+                        <span class="text-white/10">.</span>
+                        <span class="text-[#5070a8]">G</span>
+                    </div>
+                </div>
+                <div class="h-4 w-[1px] bg-white/10"></div>
+                <span class="text-[9px] text-gray-500 mono uppercase tracking-widest">Uplink: Synchronized</span>
+            </div>
+            <div class="flex gap-8 items-center mono text-[10px]">
+                <div class="text-gray-500"><span class="text-gray-700">LATENCY:</span> 14ms</div>
+                <div id="clock" class="text-accent tabular-nums">00:00:00</div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="panel">
+            <div class="panel-header"><span>Navigation</span><i data-lucide="menu" class="w-3 h-3"></i></div>
+            <nav class="flex-1 mt-2">
+                <button onclick="switchView('home')" class="nav-link active" id="btn-home">
+                    <i data-lucide="terminal" class="w-4 h-4"></i>
+                    <span class="nav-text">01. HOME.sh</span>
+                </button>
+                <button onclick="switchView('skills')" class="nav-link" id="btn-skills">
+                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                    <span class="nav-text">02. SKILLS.cfg</span>
+                </button>
+                <button onclick="switchView('projects')" class="nav-link" id="btn-projects">
+                    <i data-lucide="binary" class="w-4 h-4"></i>
+                    <span class="nav-text">03. PROJECTS.exe</span>
+                </button>
+                <button onclick="switchView('github')" class="nav-link" id="btn-github">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <span class="nav-text">04. GITHUB.git</span>
+                </button>
+                <button onclick="switchView('resume')" class="nav-link" id="btn-resume">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    <span class="nav-text">05. RESUME.pdf</span>
+                </button>
+            </nav>
+            <div class="p-6 border-t border-white/5">
+                <div class="mono text-[8px] text-gray-600 uppercase mb-4 tracking-widest">External Links</div>
+                <div class="flex gap-5">
+                    <a href="https://linkedin.com/in/udaykumar-g-b0a990264/" target="_blank" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="mailto:uday242004@gmail.com" class="text-gray-500 hover:text-accent transition-colors"><i data-lucide="mail" class="w-4 h-4"></i></a>
+                    <a href="https://leetcode.com/u/Knight_2031/" target="_blank" class="text-gray-500 hover:text-accent transition-colors" title="LeetCode Profile">
+                        <svg class="leetcode-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L14.444.414A1.374 1.374 0 0 0 13.483 0zm-7.46 4.733a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L6.982 5.147a1.374 1.374 0 0 0-.96-.414zm13.483 8.79a1.374 1.374 0 0 0-.96.415l-4.378 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L14.443 13.94a1.374 1.374 0 0 0-.96-.415zm-7.46 4.733a1.374 1.374 0 0 0-.961.414l-4.377 4.517a1.362 1.362 0 1 0 1.924 1.93l3.413-3.521 3.414 3.52a1.362 1.362 0 0 0 1.924-1.93L6.982 18.67a1.374 1.374 0 0 0-.96-.414z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Workspace -->
+        <main class="panel">
+            <div id="view-home" class="view view-container active">
+                <div class="w-full">
+                    <div class="mb-16">
+                        <p class="text-accent mono text-[10px] mb-4 tracking-widest uppercase">System Initialization Success...</p>
+                        <h1 class="text-8xl font-black mb-4 tracking-tighter uppercase leading-none text-white">
+                            Uday <br/> Kumar G
+                        </h1>
+                        <p class="mono text-xs text-gray-500 mb-10 uppercase tracking-[0.2em]">
+                            AI & ML undergraduate at Ramaiah Institute of Technology
+                        </p>
+                        <div class="h-1 w-24 bg-accent mb-12 shadow-[0_0_15px_var(--accent)]"></div>
+                        <p class="text-2xl text-gray-400 font-light leading-relaxed max-w-2xl mb-8">
+                            Focused on <span class="text-white font-medium">building intelligent solutions</span> for real-world problems. 
+                        </p>
+                        <p class="text-lg text-gray-500 font-light leading-relaxed max-w-2xl">
+                            I enjoy turning ideas into <span class="text-white">practical systems</span> that create meaningful impact beyond theory.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-px bg-white/10 border border-white/10">
+                        <div class="p-10 bg-black">
+                            <span class="mono text-[10px] text-accent uppercase tracking-widest block mb-4">Intellectual Asset</span>
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase">Patent Holder</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Enhanced IoT & Computer Vision solutions for automated waste segregation.</p>
+                        </div>
+                        <div class="p-10 bg-black">
+                            <span class="mono text-[10px] text-accent uppercase tracking-widest block mb-4">Research Node</span>
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase">Published Author</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed">Forecasting water requirements in reservoirs // Springer Publication 2025.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-skills" class="view view-container">
+                <div class="mb-16">
+                    <p class="mono text-accent text-[10px] mb-2 uppercase tracking-widest">Protocol: SKILLS_AND_TOOLS</p>
+                    <h2 class="text-5xl font-black uppercase tracking-tight">Technical Capabilities</h2>
+                </div>
+                
+                <div class="space-y-20">
+                    <section>
+                        <h3 class="mono text-[9px] text-gray-600 uppercase mb-8 tracking-[5px] border-b border-white/5 pb-3">Language Protocols</h3>
+                        <div class="skill-matrix">
+                            <div class="skill-item"><span>Python</span><span class="skill-val">LEVEL: 9.9</span></div>
+                            <div class="skill-item"><span>C++</span><span class="skill-val">LEVEL: 9.9</span></div>
+                            <div class="skill-item"><span>C</span><span class="skill-val">LEVEL: BASICS</span></div>
+                            <div class="skill-item"><span>SQL</span><span class="skill-val">LEVEL: ADVANCED</span></div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3 class="mono text-[9px] text-gray-600 uppercase mb-8 tracking-[5px] border-b border-white/5 pb-3">Neural Frameworks & AI Tools</h3>
+                        <div class="skill-matrix">
+                            <div class="skill-item"><span>TensorFlow</span><span class="skill-val">GRAPH</span></div>
+                            <div class="skill-item"><span>Keras</span><span class="skill-val">LAYERS</span></div>
+                            <div class="skill-item"><span>PyTorch</span><span class="skill-val">NEURAL</span></div>
+                            <div class="skill-item"><span>OpenCV</span><span class="skill-val">VISION</span></div>
+                            <div class="skill-item"><span>Flutter</span><span class="skill-val">HYBRID</span></div>
+                            <div class="skill-item"><span>VS Code</span><span class="skill-val">IDE</span></div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3 class="mono text-[9px] text-gray-600 uppercase mb-8 tracking-[5px] border-b border-white/5 pb-3">Core Foundations & ML Theory</h3>
+                        <div class="skill-matrix">
+                            <div class="skill-item"><span>DSA</span><span class="skill-val">ALGORITHMIC</span></div>
+                            <div class="skill-item"><span>OOPs</span><span class="skill-val">DESIGN</span></div>
+                            <div class="skill-item"><span>Operating Systems</span><span class="skill-val">KERNEL</span></div>
+                            <div class="skill-item"><span>Computer Networks</span><span class="skill-val">STACK</span></div>
+                            <div class="skill-item"><span>Regression</span><span class="skill-val">STATISTICAL</span></div>
+                            <div class="skill-item"><span>Classification</span><span class="skill-val">DISCRETE</span></div>
+                            <div class="skill-item"><span>Clustering</span><span class="skill-val">UNSUPERVISED</span></div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3 class="mono text-[9px] text-gray-600 uppercase mb-8 tracking-[5px] border-b border-white/5 pb-3">DevOps & Environment</h3>
+                        <div class="skill-matrix">
+                            <div class="skill-item"><span>CI/CD</span><span class="skill-val">PIPELINE</span></div>
+                            <div class="skill-item"><span>Kubernetes</span><span class="skill-val">ORCHESTRATION</span></div>
+                            <div class="skill-item"><span>Jenkins</span><span class="skill-val">AUTOMATION</span></div>
+                            <div class="skill-item"><span>Git / GitHub</span><span class="skill-val">VCS</span></div>
+                            <div class="skill-item"><span>Ubuntu</span><span class="skill-val">OS_LINUX</span></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div id="view-projects" class="view view-container">
+                <div class="mb-16">
+                    <p class="mono text-accent text-[10px] mb-2 uppercase tracking-widest">Protocol: PROJECT_DEVOPS</p>
+                    <h2 class="text-5xl font-black uppercase tracking-tight">Technical Deployments</h2>
+                </div>
+
+                <div class="border border-white/10 w-full">
+                    <div class="ls-row header">
+                        <span>Permissions</span>
+                        <span>Links</span>
+                        <span>Owner</span>
+                        <span>Size</span>
+                        <span>Deployment_Name</span>
+                        <span>ID</span>
+                    </div>
+                    <div class="ls-row" onclick="openProject('visuweave')">
+                        <span class="mono text-accent">drwxr-xr-x</span>
+                        <span>2</span>
+                        <span>uday</span>
+                        <span>4.2 MB</span>
+                        <span class="ls-name">VisuWeave.bin</span>
+                        <span class="text-right">01</span>
+                    </div>
+                    <div class="ls-row" onclick="openProject('ecovista')">
+                        <span class="mono text-accent">drwxr-xr-x</span>
+                        <span>4</span>
+                        <span>uday</span>
+                        <span>12.8 MB</span>
+                        <span class="ls-name">EcoVista.bin</span>
+                        <span class="text-right">02</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-github" class="view view-container">
+                <div class="w-full">
+                    <div class="flex items-center justify-between mb-10">
+                        <div class="flex items-center gap-6">
+                            <div class="flex items-center mono font-black text-2xl tracking-widest">
+                                <span class="text-[#a85050]">U</span><span class="text-white/10">.</span><span class="text-[#50a880]">K</span><span class="text-white/10">.</span><span class="text-[#5070a8]">G</span>
+                            </div>
+                            <div class="h-8 w-[1px] bg-white/10"></div>
+                            <span class="text-accent mono text-[10px] uppercase tracking-widest">Global_Sync: UDAY2031</span>
+                        </div>
+                        <a href="https://github.com/UDAY2031" target="_blank" class="px-10 py-4 bg-white text-black font-bold mono text-[10px] uppercase hover:bg-accent hover:text-black transition-all">
+                            Open Profile
+                        </a>
+                    </div>
+
+                    <div class="readme-container mono text-sm relative w-full">
+                        <!-- MasterHead Image -->
+                        <div class="mb-12 w-full overflow-hidden border border-white/10">
+                            <img src="https://github.com/UDAY2031/Projects/blob/bdce8b8010273a4b9ac1d2aa08711e83343af8fe/pfpmaster.png?raw=true" alt="MasterHead" class="w-full h-auto opacity-90" />
+                        </div>
+
+                        <!-- Main Headers -->
+                        <div class="text-center mb-16">
+                            <h1 class="text-4xl font-black mb-3">💻🤖 Hi 👋, I'm UDAY KUMAR G 💡🤖</h1>
+                            <h2 class="text-2xl text-accent/80 italic mb-2">"Coding is ELEGANCE"</h2>
+                            <h3 class="text-gray-500 font-light uppercase tracking-[0.3em] text-xs">A passionate Software developer from India</h3>
+                        </div>
+
+                        <!-- Main Content Block -->
+                        <div class="grid md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-8 space-y-8">
+                                <div class="flex flex-wrap gap-4 mb-8">
+                                    <img src="https://komarev.com/ghpvc/?username=uday2031&label=Profile%20views&color=0e75b6&style=flat" alt="uday2031" />
+                                    <a href="https://github.com/ryo-ma/github-profile-trophy">
+                                        <img src="https://github-profile-trophy.vercel.app/?username=uday2031&theme=onedark" alt="uday2031" />
+                                    </a>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-400 text-base">
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">🔭</span> I’m currently working on <strong class="text-white">MINI PROJECTS</strong></li>
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">🌱</span> I’m currently learning <strong class="text-white">MACHINE LEARNING, DATA NETWORKS</strong></li>
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">💬</span> Ask me about <strong class="text-white">CNN, MACHINE LEARNING, NEURAL NETWORK</strong></li>
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">📫</span> How to reach me <strong class="text-white">yellowflash2031@gmail.com</strong></li>
+                                    <li class="flex items-center gap-3"><span class="text-accent text-xl">⚡</span> Fun fact: <strong class="text-white">404: Seriousness not found.</strong></li>
+                                </ul>
+
+                                <div class="mt-12 space-y-6">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://media.giphy.com/media/ObNTw8Uzwy6KQ/giphy.gif" width="30">
+                                        <em class="text-white font-bold text-lg underline decoration-accent/30 underline-offset-8">A little more about me...</em>
+                                    </div>
+                                    <div class="flex items-center gap-6 p-6 bg-white/[0.02] border border-white/5 rounded-lg">
+                                        <span class="text-xl tracking-tight"><b><i>Learning while <span class="text-accent">HOPING</span> & <span class="text-blue-400">HUSTLING!!!</span></i></b></span>
+                                        <img src="https://media.giphy.com/media/7j2hfyeVcDtf2/giphy.gif" width="50">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:col-span-4 flex flex-col gap-8">
+                                <div class="border border-white/10 p-2 rounded-lg bg-black">
+                                    <img alt="Coding" src="https://media.licdn.com/dms/image/C4D12AQEwyvEnLPlPRQ/article-cover_image-shrink_720_1280/0/1616944778816?e=2147483647&v=beta&t=JDvn_R5XEO7v00QkEkZKHxMkJK-v4K7KKZCRnHRGb38" class="w-full h-auto opacity-70 rounded-sm" />
+                                </div>
+                                <div class="p-4 border border-accent/20 bg-accent/5 rounded-lg text-center">
+                                    <img width="220" src="https://github.com/UDAY2031/Projects/blob/9ed615ba0b7817e3ac3347e3fe9b72a30e25b6c6/L.png?raw=true" class="mx-auto opacity-60" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-16" />
+
+                        <div class="grid md:grid-cols-2 gap-16">
+                            <!-- Connect -->
+                            <div class="space-y-8">
+                                <h3 class="text-xl font-bold border-none !p-0">Connect with me:</h3>
+                                <div class="flex gap-8">
+                                    <a href="https://linkedin.com/in/uday-kumar-g-3956312a4/" target="_blank" class="hover:scale-125 transition-transform">
+                                        <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" height="30" width="40" />
+                                    </a>
+                                    <a href="https://instagram.com/the_ai_dream_1" target="_blank" class="hover:scale-125 transition-transform">
+                                        <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" height="30" width="40" />
+                                    </a>
+                                    <a href="https://www.youtube.com/c/THE AI DREAM" target="_blank" class="hover:scale-125 transition-transform">
+                                        <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" height="30" width="40" />
+                                    </a>
+                                    <a href="https://www.codechef.com/users/spiderbot15" target="_blank" class="hover:scale-125 transition-transform">
+                                        <img src="https://img.shields.io/badge/CodeChef-%235A5A5A.svg?&style=for-the-badge&logo=codechef&logoColor=white" height="30" width="40" />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="space-y-8">
+                                <h3 class="text-xl font-bold border-none !p-0">Languages and Tools:</h3>
+                                <div class="flex flex-wrap gap-5">
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="45" height="45"/>
+                                    <img src="https://cdn.worldvectorlogo.com/logos/arduino-1.svg" alt="arduino" width="45" height="45"/>
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="45" height="45"/>
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="45" height="45"/>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="matlab" width="45" height="45"/>
+                                    <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="opencv" width="45" height="45"/>
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="45" height="45"/>
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="45" height="45"/>
+                                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/pytorch/pytorch-icon.svg" alt="pytorch" width="45" height="45"/>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="scikit_learn" width="45" height="45"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-12 mt-20 pt-16 border-t border-white/5">
+                            <img src="https://github-readme-streak-stats.herokuapp.com/?user=uday2031&theme=black-ice" alt="uday2031" class="border border-white/10 rounded shadow-xl" />
+                            
+                            <div class="w-full max-w-3xl p-6 bg-white/[0.01] border border-white/5 rounded-xl">
+                                <picture>
+                                    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/UDAY2031/UDAY2031/output/github-snake-dark.svg" />
+                                    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/UDAY2031/UDAY2031/output/github-snake.svg" />
+                                    <img alt="github-snake" src="https://raw.githubusercontent.com/UDAY2031/UDAY2031/output/github-snake.svg" class="w-full opacity-80" />
+                                </picture>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: RESUME -->
+            <div id="view-resume" class="view view-container">
+                <div class="flex justify-between items-end mb-16">
+                    <div>
+                        <p class="mono text-accent text-[10px] mb-2 uppercase tracking-widest">Protocol: PROFESSIONAL_DOSSIER // Encrypted_Uplink</p>
+                        <h2 class="text-6xl font-black uppercase tracking-tighter">Resume</h2>
+                    </div>
+                    <!-- Download Link Re-styled to be Vibrant Neon Green with Black Text -->
+                    <a href="https://github.com/UDAY2031/Projects_demo_UI/raw/0a33d938a46b3e9e5e6a3e1088e8e41c24c5d92e/Uday_resume.pdf" target="_blank" class="px-12 py-5 bg-[#00ffaa] text-[#020202] font-black mono text-[11px] uppercase shadow-[0_0_25px_rgba(0,255,170,0.5)] hover:scale-105 transition-transform flex items-center gap-3 border border-accent">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        Download_Artifact.pdf
+                    </a>
+                </div>
+
+                <div class="border border-white/10 p-16 space-y-20 bg-black/60 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 mono text-[8px] text-white/5 uppercase select-none tracking-[0.4em] transform rotate-90 origin-top-right">SECURE DATA ACCESS // RFC 7519</div>
+                    
+                    <!-- Header Info -->
+                    <div class="resume-header">
+                        <h1 class="text-5xl font-black text-white uppercase mb-4 tracking-tighter leading-none">Uday Kumar G</h1>
+                        <div class="flex flex-wrap gap-10 mono text-xs text-gray-500 uppercase tracking-widest mt-6">
+                            <span class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> uday242004@gmail.com</span>
+                            <span class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-accent"></i> (+91) 9663487366</span>
+                            <span class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-accent"></i> Bangalore, India</span>
+                        </div>
+                    </div>
+
+                    <!-- Work Experience -->
+                    <div class="resume-section">
+                        <h3 class="resume-section-title">Experience_Log</h3>
+                        <div class="resume-entry">
+                            <div class="flex justify-between items-baseline mb-8">
+                                <div>
+                                    <h4 class="text-3xl font-bold text-white uppercase tracking-tight">Unisys</h4>
+                                    <p class="text-accent mono text-[11px] mt-2 uppercase tracking-widest font-bold">Summer Intern (Hybrid)</p>
+                                </div>
+                                <span class="mono text-sm text-gray-600">JUL 2024 - AUG 2024</span>
+                            </div>
+                            <div class="space-y-6">
+                                <p class="resume-bullet">Developed a fully automated Power BI reporting pipeline using Python, Selenium, and WebDriver, eliminating the need for daily manual report generation.</p>
+                                <p class="resume-bullet">Built an end-to-end automation script that refreshes dashboards, navigates the portal, and downloads updated reports without human intervention.</p>
+                                <p class="resume-bullet">Cut manual reporting workload by 70%, saving 5+ hours per week, and delivered the end-to-end automation system 15 days earlier than planned.</p>
+                                <p class="resume-bullet">Tech Stack utilized: Python, Selenium, WebDriver, Power BI.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Intellectual Assets -->
+                    <div class="resume-section">
+                        <h3 class="resume-section-title">Intellectual_Assets</h3>
+                        <div class="grid md:grid-cols-2 gap-16">
+                            <div class="resume-entry">
+                                <span class="mono text-[9px] text-accent uppercase mb-3 block border-b border-accent/20 w-max">Patent_Record_2024</span>
+                                <h4 class="text-xl font-bold text-white mb-4 uppercase leading-snug">Indian Patent (Co-inventor)</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed italic">"Enhanced Solution for Garbage Collection and Segregation Using Computer Vision and IoT."</p>
+                                <p class="mono text-[10px] text-gray-700 mt-4 tracking-widest">APP_NO: 202441050632</p>
+                            </div>
+                            <div class="resume-entry">
+                                <span class="mono text-[9px] text-accent uppercase mb-3 block border-b border-accent/20 w-max">Springer_Publication_2025</span>
+                                <h4 class="text-xl font-bold text-white mb-4 uppercase leading-snug">ICTIS Research (Co-author)</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed italic">"Forecasting Future Water Requirements and Assessing Storage Capacities in Reservoirs."</p>
+                                <p class="mono text-[10px] text-gray-700 mt-4 tracking-widest">PUBLISHER: SPRINGER NATURE</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="resume-section">
+                        <h3 class="resume-section-title">Academic_Protocol</h3>
+                        <div class="resume-entry">
+                            <div class="flex justify-between items-baseline mb-6">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white uppercase tracking-tight">Ramaiah Institute of Technology</h4>
+                                    <p class="text-gray-400 text-sm mt-2 uppercase tracking-widest">B.E. in Artificial Intelligence and Machine Learning</p>
+                                </div>
+                                <span class="mono text-sm text-gray-600">2022 - 2026 (EXPECTED)</span>
+                            </div>
+                            <div class="p-8 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-between max-w-md">
+                                <div class="space-y-1">
+                                    <span class="mono text-[9px] text-gray-600 uppercase tracking-widest block">Performance_Index</span>
+                                    <span class="text-accent text-4xl font-black tracking-tighter">8.92</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs text-gray-500 mono block">GPA / 10.0</span>
+                                    <span class="text-[10px] text-gray-800 mono uppercase">Audit: Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="resume-section">
+                        <h3 class="resume-section-title">Milestone_Metrics</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="p-10 border border-white/5 bg-white/[0.01] rounded hover:bg-white/[0.03] transition-colors">
+                                <i data-lucide="trophy" class="w-10 h-10 text-yellow-500 mb-8"></i>
+                                <h5 class="font-bold text-white text-lg mb-3 uppercase tracking-tight">Unisys Innovation Program</h5>
+                                <p class="text-sm text-gray-500 leading-relaxed">1st Runner-up (Year-15, 2024) and Finalist (Year-16, 2025). Recognized for architectural excellence.</p>
+                            </div>
+                            <div class="p-10 border border-white/5 bg-white/[0.01] rounded hover:bg-white/[0.03] transition-colors">
+                                <i data-lucide="award" class="w-10 h-10 text-accent mb-8"></i>
+                                <h5 class="font-bold text-white text-lg mb-3 uppercase tracking-tight">Hackathon Dominance</h5>
+                                <p class="text-sm text-gray-500 leading-relaxed">Secured 1st place in two 24+ hour competitive hackathons: Protatva (RVIT&M) and amBITthon (BIT), 2024.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Side Stats & Log Panel -->
+        <aside class="panel">
+            <div class="panel-header"><span>Live_Console</span><i data-lucide="activity" class="w-3 h-3"></i></div>
+            <div id="console-feed" class="mono"></div>
+            
+            <div class="panel-header border-t border-white/5"><span>Hardware_Stats</span></div>
+            <div class="p-6 mono text-[10px] space-y-6">
+                <div class="space-y-3">
+                    <div class="flex justify-between text-gray-500 uppercase"><span>Kernel_Load</span><span class="text-accent">14%</span></div>
+                    <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-accent w-[14%] shadow-[0_0_8px_var(--accent)]"></div></div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-gray-500 uppercase"><span>GPU_Buffer</span><span class="text-accent">32°C</span></div>
+                    <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-accent w-[32%] shadow-[0_0_8px_var(--accent)]"></div></div>
+                </div>
+                <div class="pt-6 grid grid-cols-2 gap-4">
+                    <div class="border border-white/10 p-4 text-center bg-white/[0.02] rounded">
+                        <div class="text-[8px] text-gray-700 uppercase mb-2">Cores</div>
+                        <div class="text-white text-base font-bold">08</div>
+                    </div>
+                    <div class="border border-white/10 p-4 text-center bg-white/[0.02] rounded">
+                        <div class="text-[8px] text-gray-700 uppercase mb-2">Uptime</div>
+                        <div class="text-white text-base font-bold">1.4kH</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Footer Global Status -->
+        <footer class="panel col-span-3 flex flex-row items-center px-6 justify-between border-t border-white/5">
+            <div class="flex gap-6 mono text-[9px] text-gray-600">
+                <div class="flex gap-2 items-center">
+                    <span class="text-accent">root@uday_terminal:~$</span>
+                    <span id="typing-line">READY_</span>
+                    <span class="cursor-blink w-1 h-3 bg-accent"></span>
+                </div>
+            </div>
+            <div class="flex gap-10 mono text-[9px] text-gray-700 uppercase tracking-widest">
+                <span>Memory_Alloc: 32.4 GB</span>
+                <span>Node: Bangalore_India</span>
+                <span class="text-white/20">© 2024 UDAY KUMAR G</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Project Detail Backdrop Overlay -->
+    <div id="project-modal" class="fixed inset-0 z-[2000] bg-black/95 hidden items-center justify-center p-8 backdrop-blur-xl">
+        <div class="max-w-7xl w-full border border-white/10 bg-[#020202] flex flex-col md:flex-row h-[85vh] shadow-[0_0_100px_rgba(0,0,0,1)] rounded-lg overflow-hidden">
+            <!-- Left Side: Video Player -->
+            <div class="w-full md:w-[68%] bg-black flex flex-col border-r border-white/5 overflow-hidden">
+                <div class="panel-header !bg-white/5 px-6 flex justify-between">
+                    <div class="flex gap-3 items-center">
+                        <span class="w-2.5 h-2.5 bg-red-500/40 rounded-full"></span>
+                        <span class="w-2.5 h-2.5 bg-yellow-500/40 rounded-full"></span>
+                        <span class="w-2.5 h-2.5 bg-green-500/40 rounded-full"></span>
+                        <span class="ml-6 text-[10px] mono text-gray-500 uppercase tracking-[0.2em]">Digital_Stream_Player.exe</span>
+                    </div>
+                </div>
+                <div class="flex-1 bg-[#050505] relative flex items-center justify-center p-4">
+                    <div class="video-webview-container border border-white/5 shadow-inner">
+                        <video id="project-video-player" class="w-full h-full object-contain" controls autoplay muted loop>
+                            <source id="video-source" src="" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Technical Alignment -->
+            <div class="w-full md:w-[32%] flex flex-col p-0">
+                <div class="panel-header !bg-white/5 px-6">
+                    <span class="text-[10px] mono text-gray-500 uppercase tracking-[0.2em]">Technical_Parameters</span>
+                    <button onclick="closeProject()" class="text-gray-500 hover:text-white transition-all transform hover:rotate-90">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="flex-1 p-12 overflow-y-auto space-y-12">
+                    <div class="space-y-6">
+                        <span id="modal-category" class="text-accent mono text-[10px] uppercase tracking-[5px] block border-b border-accent/10 pb-2">CATEGORY</span>
+                        <h3 id="modal-title" class="text-5xl font-black mb-6 uppercase tracking-tighter leading-[0.85] text-white">PROJECT</h3>
+                        <p id="modal-desc" class="text-gray-400 font-light leading-relaxed text-base">Description...</p>
+                        
+                        <div class="pt-10 border-t border-white/10">
+                            <span class="text-[10px] mono text-gray-600 uppercase tracking-widest block mb-6">Core Stack Protocol</span>
+                            <div id="modal-stack" class="flex flex-wrap gap-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 pt-10">
+                        <a id="modal-source" href="#" target="_blank" class="block w-full text-center py-5 bg-white text-black font-bold mono text-[11px] uppercase hover:bg-accent hover:text-black transition-all rounded shadow-[0_5px_15px_rgba(255,255,255,0.05)]">
+                            Source Code Access
+                        </a>
+                        <p class="mono text-[9px] text-gray-700 text-center uppercase tracking-[0.3em] italic">Encrypted Secure Uplink</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const updateClock = () => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
+        };
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
+            gsap.to(follower, { x: e.clientX - 15, y: e.clientY - 15, duration: 0.15 });
+        });
+
+        const initNetworkBG = () => {
+            const canvas = document.getElementById('bg-canvas');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 250;
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            for (let i = 0; i < 400; i++) {
+                vertices.push(THREE.MathUtils.randFloatSpread(500), THREE.MathUtils.randFloatSpread(500), THREE.MathUtils.randFloatSpread(500));
+            }
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            const points = new THREE.Points(geometry, new THREE.PointsMaterial({ size: 2, color: 0x00ffaa, transparent: true, opacity: 0.5 }));
+            scene.add(points);
+            const animate = () => {
+                requestAnimationFrame(animate);
+                points.rotation.y += 0.0008;
+                points.rotation.x += 0.0004;
+                renderer.render(scene, camera);
+            };
+            const resize = () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            };
+            window.addEventListener('resize', resize);
+            resize(); animate();
+        };
+
+        const consoleFeed = document.getElementById('console-feed');
+        const initialLogs = ["KERNEL_VERSION: 5.1.0-STABLE", "AUTHENTICATING_USER: UDAY_KUMAR", "PULLING_GITHUB_MANIFEST...", "DECRYPTING_RESUME_VAULT...", "SUCCESS: NEURAL_LINK_ACTIVE", "MAPPING_SKILL_MATRICES...", "STATUS: READY_FOR_QUERY"];
+        let logIdx = 0;
+        
+        const addLog = (text, type = '') => {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            entry.innerHTML = `<span class="text-gray-800">[${time}]</span> ${text}`;
+            consoleFeed.appendChild(entry); // Append to the bottom
+            consoleFeed.scrollTop = consoleFeed.scrollHeight; // Auto-scroll to bottom
+            if (consoleFeed.children.length > 50) consoleFeed.firstChild.remove();
+        };
+
+        const bootSequence = () => {
+            const interval = setInterval(() => {
+                if (logIdx < initialLogs.length) { addLog(initialLogs[logIdx], logIdx > 4 ? 'success' : 'info'); logIdx++; }
+                else clearInterval(interval);
+            }, 700);
+        };
+
+        // Real-time terminal shell simulation for navigation
+        const switchView = (id) => {
+            const current = document.querySelector('.view.active');
+            const target = document.getElementById(`view-${id}`);
+            if (current === target) return;
+
+            // Map IDs to terminal command strings
+            const cmdMap = {
+                'home': 'cd /root/system && ./init_core.sh',
+                'skills': 'cat /usr/local/config/skills.cfg',
+                'projects': 'ls -la /var/www/deployments/projects.exe',
+                'github': 'git remote sync origin && fetch README.md',
+                'resume': 'cd /mnt/vault/security && open resume.pdf'
+            };
+
+            // 1. Instantly update typing line for immediate feedback
+            document.getElementById('typing-line').innerText = cmdMap[id];
+
+            // 2. Log the exact command being run
+            addLog(`root@uday_terminal:~$ ${cmdMap[id]}`, 'cmd');
+
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(`btn-${id}`).classList.add('active');
+
+            // 3. Delayed transition to simulate process execution
+            setTimeout(() => {
+                addLog(`EXECUTING: ${id.toUpperCase()}.PROCESS`, 'info');
+                
+                gsap.to(current, { opacity: 0, scale: 0.98, y: -10, duration: 0.2, onComplete: () => {
+                    current.classList.remove('active');
+                    target.classList.add('active');
+                    gsap.fromTo(target, { opacity: 0, scale: 1.02, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" });
+                    addLog(`SYSTEM: ${id.toUpperCase()} MODULE LOADED SUCCESS`, 'success');
+                }});
+            }, 250);
+        };
+
+        const projectData = {
+            visuweave: {
+                title: "VISUWEAVE",
+                category: "Dynamic Presentation System",
+                desc: "A real-time Speech-to-Visual mapping system. It utilizes cloud-based ASR for transcription and NLP models (like BERT) to extract critical phrases and context from live audio. This is followed by a pipeline leveraging AI image generation and web scraping to dynamically produce visuals and animated transitions in a GUI, ensuring visual coherence and minimal latency.",
+                stack: ["Python", "Speech-to-Text (ASR)", "NLP", "OpenCV", "GANs", "Reinforcement Learning"],
+                demo: "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/VisuWeave%20demo.mp4",
+                source: "https://github.com/UDAY2031/VisuWeave.git"
+            },
+            ecovista: {
+                title: "ECOVISTA",
+                category: "AI-Driven Waste Segregation",
+                desc: "A comprehensive waste management solution with four modules: YOLO v8-based Segregation (dry, wet, recyclable, hazardous), CVAT-enhanced Litter Detection, a cost-effective Hardware Prototype using OpenCV for classification, and a User/Admin Application. The system includes an app-based reward system and surveillance monitoring to encourage proper disposal.",
+                stack: ["Python", "OpenCV", "YOLOv8", "ML", "Face Recognition", "Android Development", "IoT-enabled hardware"],
+                demo: "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/EcoVista%20demo%202.mp4",
+                source: "https://github.com/UDAY2031/EcoVista.git"
+            }
+        };
+
+        const openProject = (id) => {
+            const data = projectData[id];
+            const videoPlayer = document.getElementById('project-video-player');
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-category').innerText = data.category;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-source').href = data.source;
+            videoPlayer.src = data.demo;
+            videoPlayer.load();
+            const stackContainer = document.getElementById('modal-stack');
+            stackContainer.innerHTML = '';
+            data.stack.forEach(tech => {
+                const tag = document.createElement('span');
+                tag.className = 'px-3 py-1.5 border border-accent/20 text-[9px] mono text-accent uppercase tracking-widest rounded bg-accent/5';
+                tag.innerText = tech;
+                stackContainer.appendChild(tag);
+            });
+            const modal = document.getElementById('project-modal');
+            modal.style.display = 'flex';
+            addLog(`STREAMING_SECURE_FEED: ${id.toUpperCase()}`, 'success');
+            gsap.fromTo(modal.children[0], { scale: 0.95, opacity: 0, y: 20 }, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "expo.out" });
+        };
+
+        const closeProject = () => {
+            const modal = document.getElementById('project-modal');
+            const videoPlayer = document.getElementById('project-video-player');
+            videoPlayer.pause(); videoPlayer.src = "";
+            gsap.to(modal.children[0], { scale: 0.95, opacity: 0, y: 20, duration: 0.3, onComplete: () => { modal.style.display = 'none'; }});
+        };
+
+        window.onload = () => { initNetworkBG(); bootSequence(); };
+    </script>
+</body>
+</html>
