@@ -35,7 +35,7 @@
             height: 100vh;
             overflow: hidden;
             z-index: 1;
-            background: #000; /* Prevent white flash */
+            background: #000; 
         }
 
         [data-us-project] {
@@ -46,10 +46,9 @@
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 2s ease-in; /* Smooth fade-in for the 3D model */
+            transition: opacity 2s ease-in;
         }
 
-        /* Once Unicorn Studio is ready, it usually adds internal classes or we can trigger this */
         .us-initialized [data-us-project] {
             opacity: 1;
         }
@@ -72,7 +71,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 2.5rem 4rem;
+            padding: 1.5rem 1.5rem; /* Adjusted for mobile default */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -80,10 +79,16 @@
             pointer-events: none;
         }
 
+        @media (min-width: 768px) {
+            header {
+                padding: 2.5rem 4rem;
+            }
+        }
+
         .status-display {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .pulse-dot {
@@ -101,31 +106,39 @@
         }
 
         .status-text {
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #9ca3af;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-item {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             font-weight: 400;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: #9ca3af;
-            transition: all 0.3s ease;
-            text-decoration: none;
         }
 
-        .nav-item:hover {
-            color: white;
-            letter-spacing: 0.3em;
+        @media (min-width: 768px) {
+            .status-text {
+                font-size: 0.6rem;
+                letter-spacing: 0.3em;
+            }
+        }
+
+        .meta-display {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .meta-label {
+            font-size: 0.5rem;
+            letter-spacing: 0.1em;
+            color: #4b5563;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: #9ca3af;
+            font-variant-numeric: tabular-nums;
         }
 
         .interactive {
@@ -133,12 +146,12 @@
         }
 
         .hero-title {
-            font-size: clamp(2rem, 6vw, 4.5rem); 
+            font-size: clamp(2rem, 8vw, 4.5rem); 
             font-weight: 500;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .glass-btn {
@@ -158,7 +171,6 @@
             letter-spacing: 0.5em; 
         }
 
-        /* Smoother and slightly delayed UI entrance */
         .fade-in {
             animation: fadeIn 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -171,18 +183,18 @@
 
         .tagline {
             color: #9ca3af;
-            letter-spacing: 0.5em;
-            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
         }
 
-        @media (max-width: 768px) {
-            header {
-                padding: 1.5rem 2rem;
-            }
-            .nav-links {
-                display: none; 
+        @media (min-width: 768px) {
+            .tagline {
+                letter-spacing: 0.5em;
+                font-size: 0.75rem;
+                margin-bottom: 4rem;
             }
         }
     </style>
@@ -194,20 +206,19 @@
     </div>
 
     <header>
-        <!-- Delayed these slightly to let the background load first -->
-        <div class="status-display fade-in interactive" style="animation-delay: 1.8s;">
+        <div class="status-display fade-in" style="animation-delay: 1.8s;">
             <div class="pulse-dot"></div>
-            <div class="status-text">SYSTEM_ACTIVE // 12.97° N, 77.59° E</div>
+            <div class="status-text">LIVE_ENV // 12.97° N</div>
         </div>
-        <nav class="nav-links fade-in interactive" style="animation-delay: 2s;">
-            <a href="https://github.com/uday2031" target="_blank" class="nav-item">GitHub</a>
-            <a href="#" class="nav-item">LinkedIn</a>
-            <a href="#" class="nav-item">Archives</a>
-        </nav>
+        
+        <!-- Replaced GitHub/LinkedIn with Dynamic View Metadata -->
+        <div class="meta-display fade-in" style="animation-delay: 2s;">
+            <div class="meta-label">Total Node Access</div>
+            <div class="meta-value" id="view-counter">000,412</div>
+        </div>
     </header>
 
     <main class="ui-layer px-6">
-        <!-- The UI now waits 1.5s before even starting to fade in, hiding the empty background phase -->
         <div class="fade-in flex flex-col items-center" style="animation-delay: 1.5s;">
             <h1 class="hero-title">
                 UDAY KUMAR G
@@ -219,7 +230,7 @@
 
         <div class="fade-in interactive" style="animation-delay: 2.2s;">
             <a href="https://uday2031.github.io/portfolio/" 
-               class="glass-btn px-16 py-5 rounded-full text-[10px] font-medium tracking-[0.4em] uppercase flex items-center group">
+               class="glass-btn px-12 md:px-16 py-4 md:py-5 rounded-full text-[9px] md:text-[10px] font-medium tracking-[0.4em] uppercase flex items-center group">
                 Enter Portfolio
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-4 transform group-hover:translate-x-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -229,8 +240,22 @@
     </main>
 
     <script type="text/javascript">
-        // Optimized Initialization
+        // View Counter Logic (Mock persistent counter)
+        const updateCounter = () => {
+            const counterEl = document.getElementById('view-counter');
+            let baseViews = 412;
+            const now = new Date().getTime();
+            // Deterministic increment based on time to simulate "real-time" views
+            const dynamicViews = Math.floor((now % 100000) / 1000); 
+            const total = (baseViews + dynamicViews).toString().padStart(6, '0');
+            const formatted = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            counterEl.textContent = formatted;
+        };
+
         window.addEventListener('load', function() {
+            updateCounter();
+            setInterval(updateCounter, 5000); // Update every 5s
+
             const initUnicorn = () => {
                 if (window.UnicornStudio && window.UnicornStudio.init) {
                     window.UnicornStudio.init();
@@ -238,11 +263,9 @@
                 }
             };
 
-            // If the script is already loaded via the link in head
             if (window.UnicornStudio) {
                 initUnicorn();
             } else {
-                // Fallback injection if preload failed
                 var i = document.createElement("script");
                 i.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js";
                 i.onload = initUnicorn;
