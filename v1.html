@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uday Kumar G | Portfolio</title>
+    
+    <!-- Preload the heavy engine script to reduce latency -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js" as="script">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
         body, html {
             margin: 0;
@@ -30,9 +35,9 @@
             height: 100vh;
             overflow: hidden;
             z-index: 1;
+            background: #000; /* Prevent white flash */
         }
 
-        /* 116vh keeps the watermark buried below the visible floor */
         [data-us-project] {
             width: 100vw !important;
             height: 116vh !important; 
@@ -40,6 +45,13 @@
             position: absolute;
             top: 0;
             left: 0;
+            opacity: 0;
+            transition: opacity 2s ease-in; /* Smooth fade-in for the 3D model */
+        }
+
+        /* Once Unicorn Studio is ready, it usually adds internal classes or we can trigger this */
+        .us-initialized [data-us-project] {
+            opacity: 1;
         }
 
         /* UI Overlay Layer */
@@ -55,13 +67,73 @@
             pointer-events: none;
         }
 
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .status-display {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pulse-dot {
+            width: 5px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        .status-text {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-item {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: white;
+            letter-spacing: 0.3em;
+        }
+
         .interactive {
             pointer-events: auto !important;
         }
 
-        /* Minimalist Name Style */
         .hero-title {
-            font-size: clamp(2rem, 6vw, 4.5rem); /* Significantly smaller as requested */
+            font-size: clamp(2rem, 6vw, 4.5rem); 
             font-weight: 500;
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -83,16 +155,17 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.3);
             transform: translateY(-4px);
-            letter-spacing: 0.5em; /* Subtle expansion on hover */
+            letter-spacing: 0.5em; 
         }
 
+        /* Smoother and slightly delayed UI entrance */
         .fade-in {
-            animation: fadeIn 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -103,30 +176,48 @@
             text-transform: uppercase;
             margin-bottom: 4rem;
         }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+            .nav-links {
+                display: none; 
+            }
+        }
     </style>
 </head>
-<body>
+<body class="loading">
 
-    <!-- Layer 0: The Cropped Animation -->
     <div id="viewport-frame">
         <div data-us-project="9aW1o4TPNOP3zhHIRYwD"></div>
     </div>
 
-    <!-- Layer 1: Minimalist UI -->
+    <header>
+        <!-- Delayed these slightly to let the background load first -->
+        <div class="status-display fade-in interactive" style="animation-delay: 1.8s;">
+            <div class="pulse-dot"></div>
+            <div class="status-text">SYSTEM_ACTIVE // 12.97° N, 77.59° E</div>
+        </div>
+        <nav class="nav-links fade-in interactive" style="animation-delay: 2s;">
+            <a href="https://github.com/uday2031" target="_blank" class="nav-item">GitHub</a>
+            <a href="#" class="nav-item">LinkedIn</a>
+            <a href="#" class="nav-item">Archives</a>
+        </nav>
+    </header>
+
     <main class="ui-layer px-6">
-        <div class="fade-in flex flex-col items-center" style="animation-delay: 0.3s;">
-            <!-- Small Name Component -->
+        <!-- The UI now waits 1.5s before even starting to fade in, hiding the empty background phase -->
+        <div class="fade-in flex flex-col items-center" style="animation-delay: 1.5s;">
             <h1 class="hero-title">
                 UDAY KUMAR G
             </h1>
-            
-            <!-- Minimal Tagline -->
             <p class="tagline font-light">
                 Engineer & Tech Alchemist
             </p>
         </div>
 
-        <div class="fade-in interactive" style="animation-delay: 1s;">
+        <div class="fade-in interactive" style="animation-delay: 2.2s;">
             <a href="https://uday2031.github.io/portfolio/" 
                class="glass-btn px-16 py-5 rounded-full text-[10px] font-medium tracking-[0.4em] uppercase flex items-center group">
                 Enter Portfolio
@@ -137,11 +228,29 @@
         </div>
     </main>
 
-    <!-- Unicorn Studio Script -->
     <script type="text/javascript">
-        !function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();
+        // Optimized Initialization
+        window.addEventListener('load', function() {
+            const initUnicorn = () => {
+                if (window.UnicornStudio && window.UnicornStudio.init) {
+                    window.UnicornStudio.init();
+                    document.body.classList.add('us-initialized');
+                }
+            };
 
-        // Passive Ghosting for hidden elements
+            // If the script is already loaded via the link in head
+            if (window.UnicornStudio) {
+                initUnicorn();
+            } else {
+                // Fallback injection if preload failed
+                var i = document.createElement("script");
+                i.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js";
+                i.onload = initUnicorn;
+                (document.head || document.body).appendChild(i);
+            }
+        });
+
+        // Watermark Cleanup
         setInterval(() => {
             const badLinks = document.querySelectorAll('a[href*="unicorn.studio"]');
             badLinks.forEach(link => {
