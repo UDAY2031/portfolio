@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gargantua journey",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "order",
+      "title",
+      "year",
+      "place",
+      "description",
+      "metrics",
+      "images",
+      "video",
+      "techStack",
+      "links",
+      "accent",
+      "theme",
+      "pages"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "order": {
+        "type": "number"
+      },
+      "title": {
+        "type": "string"
+      },
+      "year": {
+        "type": "string"
+      },
+      "place": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "metrics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "label",
+            "value",
+            "suffix"
+          ],
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "suffix": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "video": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "techStack": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "links": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "label",
+            "url"
+          ],
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^(https://|mailto:)"
+            }
+          }
+        }
+      },
+      "accent": {
+        "type": "string",
+        "pattern": "^#[0-9a-fA-F]{6}$"
+      },
+      "empty": {
+        "type": "boolean"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "theme": {
+        "type": "string",
+        "enum": [
+          "study",
+          "workshop",
+          "arena",
+          "gallery",
+          "library",
+          "patent-library",
+          "tech-lab",
+          "infrastructure",
+          "office",
+          "empty"
+        ]
+      },
+      "pages": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": [
+            "title",
+            "body",
+            "kind"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "kind": {
+              "enum": [
+                "slate",
+                "skills",
+                "monitor",
+                "report",
+                "book",
+                "patent",
+                "plaque",
+                "glass"
+              ]
+            },
+            "video": {
+              "type": "string",
+              "pattern": "^(https://|/resources/media/)"
+            },
+            "link": {
+              "type": "object",
+              "required": [
+                "label",
+                "url"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "pattern": "^(https://|mailto:)"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

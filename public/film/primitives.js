@@ -1,0 +1,11 @@
+import { clamp, cubic, expo } from './ease.js';
+export const strokeWrite=p=>cubic(p);
+export const typeOut=(text,p)=>text.slice(0,Math.floor(text.length*clamp(p)));
+export const engrave=p=>cubic(p);
+export const numberRoll=(n,p,suffix='')=>`${(Number(n)*expo(p)).toLocaleString(undefined,{maximumFractionDigits:Number.isInteger(n)?0:2})}${suffix}`;
+export const screenBoot=p=>p<=0?0:p<.12?cubic(p/.12):p<.22?1-.7*cubic((p-.12)/.1):.3+.7*cubic((p-.22)/.78);
+export const spineSlide=p=>.04*expo(p);
+export const pageTurn=p=>Math.PI*(1-cubic(p));
+export const unfold=p=>[0,1,2].map(i=>(1-cubic(clamp(p*3-i)))*Math.PI*.93);
+export const stamp=p=>1+.14*(1-expo(p));
+export const etchGlass=p=>cubic(p);

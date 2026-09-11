@@ -1,0 +1,18 @@
+{
+  "id": "08-systems",
+  "order": 8,
+  "title": "Systems",
+  "subtitle": "EcoVista — AI waste management across software, IoT and mobile",
+  "description": "An end-to-end system: a custom multi-class waste classifier, IoT hardware for automated segregation, and a mobile app with face-recognition litter alerts — the work behind the 2024 patent application.",
+  "dateRange": "2024",
+  "metrics": [],
+  "images": [],
+  "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/EcoVista%20demo%202.mp4",
+  "techStack": ["Python", "OpenCV", "YOLOv8", "Machine Learning", "Android", "IoT"],
+  "links": [{ "label": "GITHUB", "url": "https://github.com/UDAY2031" }],
+  "achievements": [
+    "Custom-trained multi-class waste classification model (YOLOv8)",
+    "Face-recognition monitoring that detects littering and sends mobile alerts"
+  ],
+  "sources": ["resume-off.pdf — Projects (EcoVista)", "old portfolio demo reel — github.com/UDAY2031/Projects_demo_UI"]
+}

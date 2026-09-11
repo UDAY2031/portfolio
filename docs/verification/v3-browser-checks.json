@@ -1,0 +1,1722 @@
+[
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -4.799999999999999,
+        0.30201608680196207,
+        0.0012241800898031216
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.34782608695652173,
+      "quality": "high",
+      "reveal": 6,
+      "room": "01-beginning",
+      "roomAnchor": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        -0.00006624167767365349,
+        -0.7071067780837913,
+        0.00006624167767365349,
+        0.7071067780837913
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 120,
+      "wrap": [
+        -6,
+        0,
+        0
+      ]
+    },
+    "status": true,
+    "title": "College"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -17.70021887676736,
+        -19.201613293716772,
+        -36.00127292570324
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4028985507246377,
+      "quality": "high",
+      "reveal": 6,
+      "room": "02-adaptation",
+      "roomAnchor": [
+        -18,
+        -24,
+        -36
+      ],
+      "rotation": [
+        0.4999656517245267,
+        0.5000343459160271,
+        0.5000343459160271,
+        -0.4999656517245267
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 139,
+      "wrap": [
+        -18,
+        -24,
+        -42
+      ]
+    },
+    "status": true,
+    "title": "First Hackathon"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        12.002215990803398,
+        6.300143683033166,
+        -64.80159804629332
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4579710144927536,
+      "quality": "high",
+      "reveal": 6,
+      "room": "03-competition",
+      "roomAnchor": [
+        12,
+        6,
+        -60
+      ],
+      "rotation": [
+        -0.00037838557548055754,
+        -0.9999999284121756,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 158,
+      "wrap": [
+        12,
+        6,
+        -66
+      ]
+    },
+    "status": true,
+    "title": "Competitions"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        47.69835092766519,
+        36.001004155369806,
+        -25.199515456166985
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 42,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5130434782608696,
+      "quality": "high",
+      "reveal": 6,
+      "room": "04-recognition",
+      "roomAnchor": [
+        48,
+        36,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7070549004204367,
+        0.7071586581464208
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 177,
+      "wrap": [
+        42,
+        36,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Recognition"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        76.79830296056134,
+        12.300049884944023,
+        -5.999556830880908
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 57,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5681159420289855,
+      "quality": "high",
+      "reveal": 6,
+      "room": "05-research",
+      "roomAnchor": [
+        72,
+        12,
+        -6
+      ],
+      "rotation": [
+        0.0002781748542013213,
+        0.707106726469739,
+        0.0002781748542013213,
+        0.707106726469739
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 196,
+      "wrap": [
+        72,
+        12,
+        -6
+      ]
+    },
+    "status": true,
+    "title": "Research"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.30288592176446,
+        -28.801419422114993,
+        23.998645482453167
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 57,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6231884057971014,
+      "quality": "high",
+      "reveal": 6,
+      "room": "06-innovation",
+      "roomAnchor": [
+        96,
+        -24,
+        24
+      ],
+      "rotation": [
+        -0.5001466357521976,
+        -0.4998533212310972,
+        0.4998533212310972,
+        -0.5001466357521976
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 215,
+      "wrap": [
+        96,
+        -30,
+        18
+      ]
+    },
+    "status": true,
+    "title": "Innovation"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        109.20082126356635,
+        -0.0007820751604645107,
+        -6.300133941811331
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6782608695652174,
+      "quality": "high",
+      "reveal": 6,
+      "room": "07-products",
+      "roomAnchor": [
+        114,
+        0,
+        -6
+      ],
+      "rotation": [
+        -0.5000028631025097,
+        -0.4999971368810953,
+        0.5000028631025097,
+        0.4999971368810953
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 234,
+      "wrap": [
+        108,
+        -6,
+        -12
+      ]
+    },
+    "status": true,
+    "title": "Products"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.7002100248603,
+        -13.1992912100142,
+        -29.99833688979286
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7333333333333333,
+      "quality": "high",
+      "reveal": 6,
+      "room": "08-systems",
+      "roomAnchor": [
+        114,
+        -18,
+        -30
+      ],
+      "rotation": [
+        -0.49985682074572657,
+        0.5001431382654115,
+        0.5001431382654115,
+        0.49985682074572657
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 253,
+      "wrap": [
+        108,
+        -18,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Systems"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.99911254975947,
+        -54.30167223263183,
+        -70.79924467483495
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7884057971014493,
+      "quality": "high",
+      "reveal": 6,
+      "room": "09-professional",
+      "roomAnchor": [
+        114,
+        -54,
+        -66
+      ],
+      "rotation": [
+        -0.9999999945688904,
+        -0.00010422197025463418,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 272,
+      "wrap": [
+        108,
+        -60,
+        -72
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": true,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.301354128543,
+        -77.99949221211341,
+        -43.199922850043805
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 48,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.8434782608695652,
+      "quality": "high",
+      "reveal": 6,
+      "room": "10-future",
+      "roomAnchor": [
+        96,
+        -78,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7072095364860995,
+        -0.7070040109526369
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 291,
+      "wrap": [
+        96,
+        -78,
+        -48
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": true,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.301354128543,
+        -77.99949221211341,
+        -43.199922850043805
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 48,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.8434782608695652,
+      "quality": "high",
+      "reveal": 6,
+      "room": "10-future",
+      "roomAnchor": [
+        96,
+        -78,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7072095364860995,
+        -0.7070040109526369
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 291,
+      "wrap": [
+        96,
+        -78,
+        -48
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.99911254975947,
+        -54.30167223263183,
+        -70.79924467483495
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 48,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7884057971014493,
+      "quality": "high",
+      "reveal": 6,
+      "room": "09-professional",
+      "roomAnchor": [
+        114,
+        -54,
+        -66
+      ],
+      "rotation": [
+        -0.9999999945688904,
+        -0.00010422197025463418,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 272,
+      "wrap": [
+        108,
+        -60,
+        -72
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.7002100248603,
+        -13.1992912100142,
+        -29.99833688979286
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7333333333333333,
+      "quality": "high",
+      "reveal": 6,
+      "room": "08-systems",
+      "roomAnchor": [
+        114,
+        -18,
+        -30
+      ],
+      "rotation": [
+        -0.49985682074572657,
+        0.5001431382654115,
+        0.5001431382654115,
+        0.49985682074572657
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 253,
+      "wrap": [
+        108,
+        -18,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Systems"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        109.20082126356635,
+        -0.0007820751604645107,
+        -6.300133941811331
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6782608695652174,
+      "quality": "high",
+      "reveal": 6,
+      "room": "07-products",
+      "roomAnchor": [
+        114,
+        0,
+        -6
+      ],
+      "rotation": [
+        -0.5000028631025097,
+        -0.4999971368810953,
+        0.5000028631025097,
+        0.4999971368810953
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 234,
+      "wrap": [
+        108,
+        -6,
+        -12
+      ]
+    },
+    "status": true,
+    "title": "Products"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.30288592176446,
+        -28.801419422114993,
+        23.998645482453167
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 68,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6231884057971014,
+      "quality": "high",
+      "reveal": 6,
+      "room": "06-innovation",
+      "roomAnchor": [
+        96,
+        -24,
+        24
+      ],
+      "rotation": [
+        -0.5001466357521976,
+        -0.4998533212310972,
+        0.4998533212310972,
+        -0.5001466357521976
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 215,
+      "wrap": [
+        96,
+        -30,
+        18
+      ]
+    },
+    "status": true,
+    "title": "Innovation"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        76.79830296056134,
+        12.300049884944023,
+        -5.999556830880908
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 57,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5681159420289855,
+      "quality": "high",
+      "reveal": 6,
+      "room": "05-research",
+      "roomAnchor": [
+        72,
+        12,
+        -6
+      ],
+      "rotation": [
+        0.0002781748542013213,
+        0.707106726469739,
+        0.0002781748542013213,
+        0.707106726469739
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 196,
+      "wrap": [
+        72,
+        12,
+        -6
+      ]
+    },
+    "status": true,
+    "title": "Research"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        47.69835092766519,
+        36.001004155369806,
+        -25.199515456166985
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 57,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5130434782608696,
+      "quality": "high",
+      "reveal": 6,
+      "room": "04-recognition",
+      "roomAnchor": [
+        48,
+        36,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7070549004204367,
+        0.7071586581464208
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 177,
+      "wrap": [
+        42,
+        36,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Recognition"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        12.002215990803398,
+        6.300143683033166,
+        -64.80159804629332
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 42,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4579710144927536,
+      "quality": "high",
+      "reveal": 6,
+      "room": "03-competition",
+      "roomAnchor": [
+        12,
+        6,
+        -60
+      ],
+      "rotation": [
+        -0.00037838557548055754,
+        -0.9999999284121756,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 158,
+      "wrap": [
+        12,
+        6,
+        -66
+      ]
+    },
+    "status": true,
+    "title": "Competitions"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -17.70021887676736,
+        -19.201613293716772,
+        -36.00127292570324
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4028985507246377,
+      "quality": "high",
+      "reveal": 6,
+      "room": "02-adaptation",
+      "roomAnchor": [
+        -18,
+        -24,
+        -36
+      ],
+      "rotation": [
+        0.4999656517245267,
+        0.5000343459160271,
+        0.5000343459160271,
+        -0.4999656517245267
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 139,
+      "wrap": [
+        -18,
+        -24,
+        -42
+      ]
+    },
+    "status": true,
+    "title": "First Hackathon"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -4.799999999999999,
+        0.30201608680196207,
+        0.0012241800898031216
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 46,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.34782608695652173,
+      "quality": "high",
+      "reveal": 6,
+      "room": "01-beginning",
+      "roomAnchor": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        -0.00006624167767365349,
+        -0.7071067780837913,
+        0.00006624167767365349,
+        0.7071067780837913
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 120,
+      "wrap": [
+        -6,
+        0,
+        0
+      ]
+    },
+    "status": true,
+    "title": "College"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -4.799999999999999,
+        0.30201608680196207,
+        0.0012241800898031216
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.34782608695652173,
+      "quality": "low",
+      "reveal": 6,
+      "room": "01-beginning",
+      "roomAnchor": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        -0.00006624167767365349,
+        -0.7071067780837913,
+        0.00006624167767365349,
+        0.7071067780837913
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 120,
+      "wrap": [
+        -6,
+        0,
+        0
+      ]
+    },
+    "status": true,
+    "title": "College"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -17.70021887676736,
+        -19.201613293716772,
+        -36.00127292570324
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4028985507246377,
+      "quality": "low",
+      "reveal": 6,
+      "room": "02-adaptation",
+      "roomAnchor": [
+        -18,
+        -24,
+        -36
+      ],
+      "rotation": [
+        0.4999656517245267,
+        0.5000343459160271,
+        0.5000343459160271,
+        -0.4999656517245267
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 139,
+      "wrap": [
+        -18,
+        -24,
+        -42
+      ]
+    },
+    "status": true,
+    "title": "First Hackathon"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        12.002215990803398,
+        6.300143683033166,
+        -64.80159804629332
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 30,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4579710144927536,
+      "quality": "low",
+      "reveal": 6,
+      "room": "03-competition",
+      "roomAnchor": [
+        12,
+        6,
+        -60
+      ],
+      "rotation": [
+        -0.00037838557548055754,
+        -0.9999999284121756,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 158,
+      "wrap": [
+        12,
+        6,
+        -66
+      ]
+    },
+    "status": true,
+    "title": "Competitions"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        47.69835092766519,
+        36.001004155369806,
+        -25.199515456166985
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 30,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5130434782608696,
+      "quality": "low",
+      "reveal": 6,
+      "room": "04-recognition",
+      "roomAnchor": [
+        48,
+        36,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7070549004204367,
+        0.7071586581464208
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 177,
+      "wrap": [
+        42,
+        36,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Recognition"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        76.79830296056134,
+        12.300049884944023,
+        -5.999556830880908
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 35,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5681159420289855,
+      "quality": "low",
+      "reveal": 6,
+      "room": "05-research",
+      "roomAnchor": [
+        72,
+        12,
+        -6
+      ],
+      "rotation": [
+        0.0002781748542013213,
+        0.707106726469739,
+        0.0002781748542013213,
+        0.707106726469739
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 196,
+      "wrap": [
+        72,
+        12,
+        -6
+      ]
+    },
+    "status": true,
+    "title": "Research"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.30288592176446,
+        -28.801419422114993,
+        23.998645482453167
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 43,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6231884057971014,
+      "quality": "low",
+      "reveal": 6,
+      "room": "06-innovation",
+      "roomAnchor": [
+        96,
+        -24,
+        24
+      ],
+      "rotation": [
+        -0.5001466357521976,
+        -0.4998533212310972,
+        0.4998533212310972,
+        -0.5001466357521976
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 215,
+      "wrap": [
+        96,
+        -30,
+        18
+      ]
+    },
+    "status": true,
+    "title": "Innovation"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        109.20082126356635,
+        -0.0007820751604645107,
+        -6.300133941811331
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6782608695652174,
+      "quality": "low",
+      "reveal": 6,
+      "room": "07-products",
+      "roomAnchor": [
+        114,
+        0,
+        -6
+      ],
+      "rotation": [
+        -0.5000028631025097,
+        -0.4999971368810953,
+        0.5000028631025097,
+        0.4999971368810953
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 234,
+      "wrap": [
+        108,
+        -6,
+        -12
+      ]
+    },
+    "status": true,
+    "title": "Products"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.7002100248603,
+        -13.1992912100142,
+        -29.99833688979286
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7333333333333333,
+      "quality": "low",
+      "reveal": 6,
+      "room": "08-systems",
+      "roomAnchor": [
+        114,
+        -18,
+        -30
+      ],
+      "rotation": [
+        -0.49985682074572657,
+        0.5001431382654115,
+        0.5001431382654115,
+        0.49985682074572657
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 253,
+      "wrap": [
+        108,
+        -18,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Systems"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.99911254975947,
+        -54.30167223263183,
+        -70.79924467483495
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 36,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7884057971014493,
+      "quality": "low",
+      "reveal": 6,
+      "room": "09-professional",
+      "roomAnchor": [
+        114,
+        -54,
+        -66
+      ],
+      "rotation": [
+        -0.9999999945688904,
+        -0.00010422197025463418,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 272,
+      "wrap": [
+        108,
+        -60,
+        -72
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": true,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.301354128543,
+        -77.99949221211341,
+        -43.199922850043805
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 34,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.8434782608695652,
+      "quality": "low",
+      "reveal": 6,
+      "room": "10-future",
+      "roomAnchor": [
+        96,
+        -78,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7072095364860995,
+        -0.7070040109526369
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 291,
+      "wrap": [
+        96,
+        -78,
+        -48
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": true,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.301354128543,
+        -77.99949221211341,
+        -43.199922850043805
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 34,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.8434782608695652,
+      "quality": "low",
+      "reveal": 6,
+      "room": "10-future",
+      "roomAnchor": [
+        96,
+        -78,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7072095364860995,
+        -0.7070040109526369
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 291,
+      "wrap": [
+        96,
+        -78,
+        -48
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.99911254975947,
+        -54.30167223263183,
+        -70.79924467483495
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 36,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7884057971014493,
+      "quality": "low",
+      "reveal": 6,
+      "room": "09-professional",
+      "roomAnchor": [
+        114,
+        -54,
+        -66
+      ],
+      "rotation": [
+        -0.9999999945688904,
+        -0.00010422197025463418,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 272,
+      "wrap": [
+        108,
+        -60,
+        -72
+      ]
+    },
+    "status": true,
+    "title": "Professional"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        113.7002100248603,
+        -13.1992912100142,
+        -29.99833688979286
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.7333333333333333,
+      "quality": "low",
+      "reveal": 6,
+      "room": "08-systems",
+      "roomAnchor": [
+        114,
+        -18,
+        -30
+      ],
+      "rotation": [
+        -0.49985682074572657,
+        0.5001431382654115,
+        0.5001431382654115,
+        0.49985682074572657
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 253,
+      "wrap": [
+        108,
+        -18,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Systems"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        109.20082126356635,
+        -0.0007820751604645107,
+        -6.300133941811331
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6782608695652174,
+      "quality": "low",
+      "reveal": 6,
+      "room": "07-products",
+      "roomAnchor": [
+        114,
+        0,
+        -6
+      ],
+      "rotation": [
+        -0.5000028631025097,
+        -0.4999971368810953,
+        0.5000028631025097,
+        0.4999971368810953
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 234,
+      "wrap": [
+        108,
+        -6,
+        -12
+      ]
+    },
+    "status": true,
+    "title": "Products"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        96.30288592176446,
+        -28.801419422114993,
+        23.998645482453167
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 43,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.6231884057971014,
+      "quality": "low",
+      "reveal": 6,
+      "room": "06-innovation",
+      "roomAnchor": [
+        96,
+        -24,
+        24
+      ],
+      "rotation": [
+        -0.5001466357521976,
+        -0.4998533212310972,
+        0.4998533212310972,
+        -0.5001466357521976
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 215,
+      "wrap": [
+        96,
+        -30,
+        18
+      ]
+    },
+    "status": true,
+    "title": "Innovation"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        76.79830296056134,
+        12.300049884944023,
+        -5.999556830880908
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 35,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5681159420289855,
+      "quality": "low",
+      "reveal": 6,
+      "room": "05-research",
+      "roomAnchor": [
+        72,
+        12,
+        -6
+      ],
+      "rotation": [
+        0.0002781748542013213,
+        0.707106726469739,
+        0.0002781748542013213,
+        0.707106726469739
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 196,
+      "wrap": [
+        72,
+        12,
+        -6
+      ]
+    },
+    "status": true,
+    "title": "Research"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        47.69835092766519,
+        36.001004155369806,
+        -25.199515456166985
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 30,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.5130434782608696,
+      "quality": "low",
+      "reveal": 6,
+      "room": "04-recognition",
+      "roomAnchor": [
+        48,
+        36,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0.7070549004204367,
+        0.7071586581464208
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 177,
+      "wrap": [
+        42,
+        36,
+        -30
+      ]
+    },
+    "status": true,
+    "title": "Recognition"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        12.002215990803398,
+        6.300143683033166,
+        -64.80159804629332
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 30,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4579710144927536,
+      "quality": "low",
+      "reveal": 6,
+      "room": "03-competition",
+      "roomAnchor": [
+        12,
+        6,
+        -60
+      ],
+      "rotation": [
+        -0.00037838557548055754,
+        -0.9999999284121756,
+        0,
+        0
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 158,
+      "wrap": [
+        12,
+        6,
+        -66
+      ]
+    },
+    "status": true,
+    "title": "Competitions"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -17.70021887676736,
+        -19.201613293716772,
+        -36.00127292570324
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.4028985507246377,
+      "quality": "low",
+      "reveal": 6,
+      "room": "02-adaptation",
+      "roomAnchor": [
+        -18,
+        -24,
+        -36
+      ],
+      "rotation": [
+        0.4999656517245267,
+        0.5000343459160271,
+        0.5000343459160271,
+        -0.4999656517245267
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 139,
+      "wrap": [
+        -18,
+        -24,
+        -42
+      ]
+    },
+    "status": true,
+    "title": "First Hackathon"
+  },
+  {
+    "hidden": false,
+    "state": {
+      "act": "IV · THE ARCHIVE",
+      "camera": [
+        -4.799999999999999,
+        0.30201608680196207,
+        0.0012241800898031216
+      ],
+      "caption": "",
+      "captionAlpha": 0,
+      "contextLost": false,
+      "drawCalls": 32,
+      "duration": 345,
+      "instances": 62763,
+      "paused": true,
+      "progress": 0.34782608695652173,
+      "quality": "low",
+      "reveal": 6,
+      "room": "01-beginning",
+      "roomAnchor": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        -0.00006624167767365349,
+        -0.7071067780837913,
+        0.00006624167767365349,
+        0.7071067780837913
+      ],
+      "seed": 2031,
+      "silence": false,
+      "t": 120,
+      "wrap": [
+        -6,
+        0,
+        0
+      ]
+    },
+    "status": true,
+    "title": "College"
+  }
+]

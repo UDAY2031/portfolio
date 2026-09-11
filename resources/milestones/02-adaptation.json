@@ -1,0 +1,18 @@
+{
+  "id": "02-adaptation",
+  "order": 2,
+  "title": "Adaptation",
+  "subtitle": "Learning the stack",
+  "description": "Languages, systems and tools gathered across the degree — the foundation every later room stands on.",
+  "dateRange": "2022 → 2024",
+  "metrics": [
+    { "label": "LANGUAGES", "value": "5" },
+    { "label": "TOOLS", "value": "8" }
+  ],
+  "images": [],
+  "video": null,
+  "techStack": ["Python", "C++", "Java", "C", "SQL", "DSA", "OOP", "Operating Systems", "Computer Networks", "Git", "Docker", "Linux"],
+  "links": [{ "label": "LEETCODE", "url": "https://leetcode.com/u/Knight_2031/" }],
+  "achievements": [],
+  "sources": ["resume-off.pdf — Skills (Languages 5, Tools 8)"]
+}

@@ -1,0 +1,1 @@
+{"time":120,"quality":"high","width":2560,"height":1440,"paused":true,"samples":135,"fps":26.850176017820562,"cpuMs":{"mean":4.043703703706464,"p95":5.5},"gpuMs":{"mean":33.592087111111134,"p95":41.72408},"averageDraws":87,"timerQueryAvailable":true,"note":"Observed browser timings; hardware identity not assumed."}

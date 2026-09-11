@@ -1,0 +1,495 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────────
+   GARGANTUA — design system
+   Deep black, warm amber, soft gold, bronze, muted white. Hairline rules,
+   wide tracking, generous negative space. No neon, no saturated primaries.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --gold: #f2b45a;
+  --gold-bright: #ffd28a;
+  --gold-dim: #d99a3e;
+  --gold-faint: rgba(242, 180, 90, 0.28);
+  --ink: #f4f0e8;
+  --ink-dim: #c9c2b6;
+  --glass: rgba(8, 5, 3, 0.88);
+  --pill: rgba(6, 4, 2, 0.82);
+  --font-body: var(--font-grotesk), "Segoe UI", system-ui, sans-serif;
+  --font-label: var(--font-mono), ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+::selection { background: var(--gold-faint); color: #fff; }
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+main { position: fixed; inset: 0; }
+
+.boot { position: fixed; inset: 0; background: #000; }
+
+/* ── Intro (three quiet lines) ─────────────────────────────────────────── */
+
+.intro {
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  background: #000;
+  z-index: 60;
+  cursor: pointer;
+}
+
+.intro-line {
+  font-family: var(--font-label);
+  font-size: clamp(11px, 1.4vw, 14px);
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  animation: introLine 2.4s ease both;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.intro-line--name {
+  color: var(--ink);
+  letter-spacing: 0.7em;
+  text-indent: 0.7em;
+}
+
+@keyframes introLine {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+  25%, 75% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(-6px); filter: blur(3px); }
+}
+
+/* ── Phase 01 courtesies ───────────────────────────────────────────────── */
+
+.begin-hints {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: clamp(36px, 9vh, 96px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 40;
+  pointer-events: none;
+  animation: hintsBreath 10s ease both;
+}
+
+@keyframes hintsBreath {
+  0% { opacity: 0; }
+  12%, 62% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.landing-hint {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0;
+}
+
+.landing-hint--device { opacity: 0.7; letter-spacing: 0.28em; }
+
+.landing-name {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  color: var(--ink);
+}
+
+/* ── Captions: the Threshold's line, the two closing lines ─────────────
+   Small, centred, low contrast, nothing else on screen. Fade in · hold ·
+   dissolve — 5.2s total, matched by THRESHOLD_TEXT_MS. Never a hard cut. */
+
+.caption {
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  z-index: 52;
+  pointer-events: none;
+}
+
+.caption p {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: clamp(11px, 1.25vw, 14px);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: none;
+  text-align: center;
+  padding: 0 32px;
+  color: rgba(232, 226, 214, 0.62);
+  animation: captionDrift 5.2s ease both;
+}
+
+@keyframes captionDrift {
+  0% { opacity: 0; filter: blur(4px); }
+  23%, 73% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(3px); }
+}
+
+/* ── The one persistent affordance ────────────────────────────────────── */
+
+.corner-sound {
+  position: fixed;
+  right: clamp(14px, 2.5vw, 28px);
+  bottom: clamp(14px, 2.5vw, 28px);
+  z-index: 55;
+  font-size: 15px;
+  line-height: 1;
+  padding: 10px;
+  color: rgba(232, 228, 220, 0.34);
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.corner-sound:hover {
+  color: var(--gold);
+  text-shadow: 0 0 14px rgba(233, 168, 76, 0.4);
+}
+
+/* ── Developer HUD (H) — diegetic instrumentation ───────────────────────── */
+
+.hud {
+  position: fixed; inset: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+.hud > * { pointer-events: auto; }
+
+.hud-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding: clamp(16px, 3vw, 32px);
+}
+
+.hud-id { display: flex; flex-direction: column; gap: 6px; }
+
+.hud-tele {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--gold-dim);
+  white-space: nowrap;
+}
+
+.hud-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+.hud-btn {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: var(--ink);
+  padding: 9px 14px;
+  border: 1px solid rgba(242, 180, 90, 0.35);
+  border-radius: 999px;
+  background: var(--pill);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  white-space: nowrap;
+}
+
+.hud-btn:hover { color: var(--gold-bright); border-color: var(--gold); }
+.hud-btn--on { color: #1c1206; background: var(--gold); border-color: var(--gold); }
+
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 72px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(232, 228, 220, 0.22);
+  outline: none;
+  cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+}
+.volume-slider::-moz-range-thumb {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+}
+
+.hud-nav {
+  position: absolute;
+  left: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: min(720px, calc(100vw - 32px));
+}
+
+.hud-nav__item {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 9px 14px;
+  border: 1px solid rgba(242, 180, 90, 0.35);
+  border-radius: 999px;
+  background: var(--pill);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.hud-nav__item:hover { color: var(--gold-bright); border-color: var(--gold); }
+.hud-nav__item--active { color: #1c1206; background: var(--gold); border-color: var(--gold); font-weight: 700; }
+.hud-nav__item--return { border-style: dashed; }
+
+.help {
+  position: fixed; inset: 0;
+  z-index: 55;
+  display: grid; place-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.help-card {
+  width: min(520px, calc(100vw - 40px));
+  padding: 28px 30px;
+  background: var(--glass);
+  border: 1px solid var(--gold-faint);
+  border-radius: 14px;
+  backdrop-filter: blur(18px);
+}
+
+.help-card h3 { margin: 0 0 14px; font-weight: 300; letter-spacing: 0.08em; color: var(--gold); }
+.help-card ul { margin: 0 0 20px; padding-left: 18px; font-size: 13px; line-height: 1.9; font-weight: 300; }
+.help-card b { color: var(--gold); font-weight: 500; }
+.help-card code { font-family: var(--font-label); font-size: 11px; color: var(--gold-bright); margin: 0 3px; }
+
+/* ── Archive debug view (D) ────────────────────────────────────────────── */
+
+.dbg-label {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #7fd0ff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3px 8px;
+  border: 1px solid rgba(127, 208, 255, 0.4);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── The memory: content assembling on a holographic plane ─────────────
+   480 × 330 px maps onto the 6.4 × 4.4 unit plane (distanceFactor 5.333).
+   The plane shader draws the frame; this is the glass and the words. Every
+   element is faded by the render loop in reveal order — never batched. */
+
+.rv {
+  width: 480px;
+  height: 330px;
+  padding: 22px 26px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  overflow: hidden;
+  color: var(--ink);
+  text-align: left;
+  background: linear-gradient(120deg, rgba(10, 7, 4, 0.62), rgba(6, 4, 2, 0.46));
+  user-select: none;
+}
+
+.rv__stage { will-change: opacity, transform, filter; }
+
+.rv__head { display: flex; flex-direction: column; gap: 3px; }
+.rv__date {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.rv__title {
+  margin: 0;
+  font-weight: 300;
+  font-size: 26px;
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1.1;
+}
+.rv__sub { margin: 0 0 3px; font-size: 12.5px; letter-spacing: 0.04em; color: var(--gold-bright); }
+.rv__desc { margin: 0; font-size: 11.5px; line-height: 1.6; font-weight: 300; color: var(--ink); }
+
+.rv__ach {
+  margin: 0;
+  padding-left: 14px;
+  font-size: 10.5px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.rv__ach li { margin-bottom: 2px; }
+.rv__ach li::marker { color: var(--gold-dim); }
+
+.rv__metrics { display: flex; gap: 22px; flex-wrap: wrap; }
+.rv__metric { display: flex; flex-direction: column; gap: 2px; }
+.rv__num {
+  font-family: var(--font-label);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--gold-bright);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 18px rgba(233, 168, 76, 0.35);
+}
+.rv__label {
+  font-family: var(--font-label);
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.rv__media {
+  width: 200px;
+  height: 92px;
+  overflow: hidden;
+  border: 1px solid rgba(233, 168, 76, 0.35);
+  background: #0a0704;
+}
+.rv__media img, .rv__media video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(0.18) saturate(0.9);
+}
+
+.rv__chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.rv__chip {
+  font-family: var(--font-label);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  padding: 3px 8px;
+  border: 1px solid rgba(242, 180, 90, 0.3);
+  border-radius: 999px;
+}
+
+.rv__links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.rv__links a {
+  font-family: var(--font-label);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--gold-bright);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(242, 180, 90, 0.5);
+  padding-bottom: 2px;
+}
+.rv__links a:hover { color: #fff; border-color: #fff; }
+
+/* the Future room stands nearly empty: let its words breathe */
+.rv__stage--links:only-of-type { margin-top: auto; }
+
+/* ── TARS callout (the void) ──────────────────────────────────────────── */
+
+.tars-tag {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding-bottom: 46px;
+  user-select: none;
+  white-space: nowrap;
+  animation: tarsTagIn 2s ease 1.5s both;
+}
+.tars-tag__name {
+  font-family: var(--font-label);
+  font-size: 15px;
+  letter-spacing: 0.6em;
+  text-indent: 0.6em;
+  color: var(--ink);
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.9);
+}
+.tars-tag__sub {
+  font-family: var(--font-label);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--gold);
+}
+.tars-tag__line {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(242, 180, 90, 0.7), transparent);
+}
+@keyframes tarsTagIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Blackout: one veil for every threshold ────────────────────────────── */
+
+.blackout {
+  position: fixed; inset: 0;
+  z-index: 50;
+  background: #000;
+  pointer-events: none;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+
+@media (pointer: coarse) {
+  .hud-btn, .hud-nav__item { padding: 12px 16px; font-size: 10px; }
+  .volume-slider { display: none; }
+}
+
+@media (max-width: 760px) {
+  .hud-top { padding: 12px 14px; flex-direction: column; }
+  .hud-tele { white-space: normal; }
+  .hud-nav {
+    left: 0; right: 0; bottom: 0;
+    max-width: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent);
+  }
+  .hud-nav::-webkit-scrollbar { display: none; }
+  .help-card { width: min(360px, calc(100vw - 28px)); padding: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-line { animation-duration: 1.2s; }
+  .caption p, .begin-hints { animation-duration: 2.6s; }
+}

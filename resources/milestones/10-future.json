@@ -1,0 +1,21 @@
+{
+  "id": "10-future",
+  "order": 10,
+  "title": "Future",
+  "subtitle": "Still being built",
+  "description": "This room is empty on purpose. What belongs here has not happened yet.",
+  "dateRange": "→",
+  "metrics": [],
+  "images": [],
+  "video": null,
+  "techStack": [],
+  "links": [
+    { "label": "EMAIL", "url": "mailto:uday242004@gmail.com" },
+    { "label": "GITHUB", "url": "https://github.com/UDAY2031" },
+    { "label": "LINKEDIN", "url": "https://www.linkedin.com/in/udaykumar-g-b0a990264/" },
+    { "label": "LEETCODE", "url": "https://leetcode.com/u/Knight_2031/" }
+  ],
+  "achievements": [],
+  "look": { "threads": 3 },
+  "sources": ["resume-off.pdf — contact details"]
+}

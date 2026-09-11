@@ -1,0 +1,41 @@
+{
+  "name": "interstellar-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "resources": "node scripts/build-resources.mjs",
+    "predev": "node scripts/build-resources.mjs && node scripts/prepare-film.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/build-resources.mjs && node scripts/prepare-film.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "film": "node scripts/serve-film.mjs",
+    "prepare:film": "node scripts/prepare-film.mjs",
+    "test:film": "node scripts/test-navigation.mjs && node scripts/test-visitors.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.7.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "gsap": "^3.15.0",
+    "next": "16.2.12",
+    "postprocessing": "^6.39.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "three": "^0.185.1",
+    "three-stdlib": "^2.36.1",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.185.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

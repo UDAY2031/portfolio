@@ -1,0 +1,357 @@
+[
+  {
+    "id": "01-college",
+    "order": 1,
+    "title": "College",
+    "theme": "study",
+    "year": "Dec 2022 – Aug 2026",
+    "place": "Ramaiah Institute of Technology",
+    "description": "Bachelor of Engineering in Artificial Intelligence and Machine Learning.",
+    "pages": [
+      {
+        "title": "Ramaiah Institute\nof Technology",
+        "body": "Bachelor of Engineering\nArtificial Intelligence and Machine Learning\n\nDec 2022 – Aug 2026",
+        "kind": "slate",
+        "metric": "CGPA 9.11"
+      },
+      {
+        "title": "Languages",
+        "body": "Python · C++ · Java · C (Basics)",
+        "kind": "skills",
+        "skills": [
+          "Python",
+          "C++",
+          "Java",
+          "C (Basics)"
+        ]
+      },
+      {
+        "title": "Frameworks & Tools",
+        "body": "TensorFlow · Keras · PyTorch · OpenCV · Git · GitHub · Ubuntu · VS Code · Flutter · Docker · Linux",
+        "kind": "skills",
+        "skills": [
+          "TensorFlow",
+          "Keras",
+          "PyTorch",
+          "OpenCV",
+          "Git",
+          "GitHub",
+          "Ubuntu",
+          "VS Code",
+          "Flutter",
+          "Docker",
+          "Linux"
+        ]
+      },
+      {
+        "title": "Core CS & ML",
+        "body": "DSA · OOP · Operating Systems · SQL · Computer Networking · Regression · Classification · Clustering",
+        "kind": "skills",
+        "skills": [
+          "DSA",
+          "OOP",
+          "Operating Systems",
+          "SQL",
+          "Computer Networking",
+          "Regression",
+          "Classification",
+          "Clustering"
+        ]
+      }
+    ],
+    "metrics": [
+      {
+        "label": "CGPA",
+        "value": 9.11,
+        "suffix": " / 10"
+      }
+    ],
+    "images": [],
+    "video": null,
+    "techStack": [
+      "Python",
+      "C++",
+      "Java",
+      "C (Basics)",
+      "TensorFlow",
+      "Keras",
+      "PyTorch",
+      "OpenCV",
+      "Git",
+      "GitHub",
+      "Ubuntu",
+      "VS Code",
+      "Flutter",
+      "Docker",
+      "Linux",
+      "DSA",
+      "OOP",
+      "Operating Systems",
+      "SQL",
+      "Computer Networking",
+      "Regression",
+      "Classification",
+      "Clustering"
+    ],
+    "links": [],
+    "achievements": [],
+    "accent": "#ffc670",
+    "skills": {
+      "Languages": [
+        "Python",
+        "C++",
+        "Java",
+        "C (Basics)"
+      ],
+      "Frameworks & Tools": [
+        "TensorFlow",
+        "Keras",
+        "PyTorch",
+        "OpenCV",
+        "Git",
+        "GitHub",
+        "Ubuntu",
+        "VS Code",
+        "Flutter",
+        "Docker",
+        "Linux"
+      ],
+      "Core CS & ML": [
+        "DSA",
+        "OOP",
+        "Operating Systems",
+        "SQL",
+        "Computer Networking",
+        "Regression",
+        "Classification",
+        "Clustering"
+      ]
+    }
+  },
+  {
+    "id": "02-experience",
+    "order": 2,
+    "title": "Experience",
+    "theme": "office",
+    "year": "Jul 2024 – Present",
+    "place": "Unisys · AURIZE",
+    "description": "From automated reporting to a fitness product used by thousands.",
+    "pages": [
+      {
+        "title": "UNISYS",
+        "body": "Summer Intern · Hybrid\nJul 2024 – Aug 2024\n\nAutomated dashboard refresh and data extraction.\nEliminated manual reporting workflows.",
+        "kind": "report",
+        "metric": "70% less effort · 5+ hours / week"
+      },
+      {
+        "title": "AURIZE",
+        "body": "Founder · Independent Project\nMar 2026 – Present\n\nGamified fitness, deployed on Google Play.\nReal-time exercise tracking and AI activity recognition.",
+        "kind": "monitor",
+        "metric": "33K+ users · 6K MAU\n400–800 DAU · 200+ paid"
+      },
+      {
+        "title": "The engine behind it",
+        "body": "Firebase application logic and data handling.\nPython ML pipelines for exercise tracking.\n\nFlutter (Dart) · Firebase (Firestore)\nPython · TensorFlow · Android Studio",
+        "kind": "monitor"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Users",
+        "value": 33,
+        "suffix": "K+"
+      },
+      {
+        "label": "MAU",
+        "value": 6,
+        "suffix": "K"
+      },
+      {
+        "label": "DAU",
+        "value": "400–800",
+        "suffix": ""
+      },
+      {
+        "label": "Paid users",
+        "value": 200,
+        "suffix": "+"
+      }
+    ],
+    "images": [],
+    "video": null,
+    "techStack": [
+      "Flutter (Dart)",
+      "Firebase (Firestore)",
+      "Python",
+      "TensorFlow",
+      "Android Studio"
+    ],
+    "links": [],
+    "achievements": [],
+    "accent": "#ffc670"
+  },
+  {
+    "id": "03-projects",
+    "order": 3,
+    "title": "Projects",
+    "theme": "tech-lab",
+    "year": "2024 – 2026",
+    "place": "VisuWeave · EcoVista",
+    "description": "Language into living visuals. Computer vision into cleaner environments.",
+    "pages": [
+      {
+        "title": "VisuWeave",
+        "body": "Natural language → dynamic canvas visualizations.\nA full-stack system with less than 2 seconds latency.\n\nPython · Speech-to-Text · NLP · OpenCV\nGANs · Reinforcement Learning",
+        "kind": "monitor",
+        "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/VisuWeave%20demo.mp4"
+      },
+      {
+        "title": "The visualization pipeline",
+        "body": "Speech-to-text → Keyword extraction\n↓\nMulti-source image retrieval → Motion rendering\n↓\nValidation for accurate visual output",
+        "kind": "slate"
+      },
+      {
+        "title": "EcoVista",
+        "body": "AI waste segregation across software, IoT and mobile.\nCustom multi-class classification with YOLOv8.\nFace recognition detects littering and sends mobile alerts.\n\nPython · OpenCV · YOLOv8 · ML · Android · IoT",
+        "kind": "monitor",
+        "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/EcoVista%20demo%202.mp4"
+      }
+    ],
+    "metrics": [],
+    "images": [],
+    "video": null,
+    "techStack": [
+      "Python",
+      "Speech-to-Text",
+      "NLP",
+      "OpenCV",
+      "GANs",
+      "Reinforcement Learning",
+      "YOLOv8",
+      "Machine Learning",
+      "Android",
+      "IoT"
+    ],
+    "links": [
+      {
+        "label": "GitHub profile",
+        "url": "https://github.com/UDAY2031"
+      }
+    ],
+    "achievements": [],
+    "accent": "#ffc670"
+  },
+  {
+    "id": "04-recognition",
+    "order": 4,
+    "title": "Recognition",
+    "theme": "gallery",
+    "year": "2024 – 2026",
+    "place": "National innovation programs & hackathons",
+    "description": "Ideas tested in competition, recognized at national scale.",
+    "pages": [
+      {
+        "title": "#2 of 12,000",
+        "body": "1st Runner-up\nUnisys Innovation Program Y15 · National",
+        "kind": "plaque"
+      },
+      {
+        "title": "Recognition, continued",
+        "body": "Top 6 · Unisys Innovation Program Y16, National\n\nSpecial Prize · BIT 24-Hour National Hackathon\n\n1st Prize · RV National Hackathon",
+        "kind": "plaque"
+      },
+      {
+        "title": "From prototypes to research",
+        "body": "2 patent applications\n2 publications",
+        "kind": "plaque"
+      }
+    ],
+    "metrics": [],
+    "images": [],
+    "video": null,
+    "techStack": [],
+    "links": [],
+    "achievements": [
+      "1st Runner-up — Unisys Innovation Program Y15, National; #2 of 12,000 teams",
+      "Top 6 — Unisys Innovation Program Y16, National",
+      "Special Prize — BIT 24-Hour National Hackathon",
+      "1st Prize — RV National Hackathon",
+      "2 patent applications",
+      "2 publications"
+    ],
+    "accent": "#ffc670"
+  },
+  {
+    "id": "05-research",
+    "order": 5,
+    "title": "Patents & Publications",
+    "theme": "library",
+    "year": "2024 – 2026",
+    "place": "An archive of original work",
+    "description": "Two publications and two patent applications.",
+    "pages": [
+      {
+        "title": "VisuWeave",
+        "body": "Dynamic Concept Visualization driven by a Novel\nPiston Framework\n\nElsevier · Procedia Computer Science",
+        "kind": "book",
+        "year": "2026",
+        "link": {
+          "label": "Read publication ↗",
+          "url": "https://www.sciencedirect.com/science/article/pii/S1877050926017679"
+        }
+      },
+      {
+        "title": "Forecasting Future\nWater Requirements",
+        "body": "and Assessing Storage Capacities in Reservoirs\n\nSpringer · ICTIS · 2025",
+        "kind": "book"
+      },
+      {
+        "title": "Computer vision & IoT",
+        "body": "Enhanced Solution for Garbage Collection and\nSegregation Using Computer Vision and IoT\n\nIndian Patent · 2024",
+        "kind": "patent",
+        "metric": "Application No. 202441050632"
+      },
+      {
+        "title": "Fault-tolerant robotics",
+        "body": "AI-Driven Fault-Tolerant Hexapod with Autonomous\nGait Adjustment and Human Intent Engine\n\nIN PREPARATION · 2026",
+        "kind": "patent",
+        "metric": "Application No. 202641076337"
+      }
+    ],
+    "metrics": [],
+    "images": [],
+    "video": null,
+    "techStack": [],
+    "links": [
+      {
+        "label": "VisuWeave publication",
+        "url": "https://www.sciencedirect.com/science/article/pii/S1877050926017679"
+      }
+    ],
+    "achievements": [],
+    "accent": "#ffc670"
+  },
+  {
+    "id": "06-present",
+    "order": 6,
+    "title": "Present",
+    "theme": "empty",
+    "year": "May 2026 – Present",
+    "place": "CustomGCApps · US-based startup",
+    "description": "Forward Deployed Engineer.",
+    "pages": [
+      {
+        "title": "FORWARD DEPLOYED\nENGINEER",
+        "body": "CustomGCApps · US-based startup\n\nMay 2026 — Present",
+        "kind": "glass"
+      }
+    ],
+    "metrics": [],
+    "images": [],
+    "video": null,
+    "techStack": [],
+    "links": [],
+    "achievements": [],
+    "accent": "#ffc670"
+  }
+]

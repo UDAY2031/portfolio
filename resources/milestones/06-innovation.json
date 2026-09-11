@@ -1,0 +1,18 @@
+{
+  "id": "06-innovation",
+  "order": 6,
+  "title": "Innovation",
+  "subtitle": "Two patent applications",
+  "description": "Ideas filed with the Indian Patent Office: computer-vision waste segregation with IoT, and a fault-tolerant autonomous legged robot with gait adjustment and a human-intent engine.",
+  "dateRange": "2024 → 2026",
+  "metrics": [{ "label": "PATENT APPLICATIONS", "value": "2" }],
+  "images": ["hexapod-patent-filing.png"],
+  "video": null,
+  "techStack": ["Computer Vision", "IoT", "YOLOv8"],
+  "links": [],
+  "achievements": [
+    "Enhanced Solution for Garbage Collection and Segregation Using Computer Vision and IoT — Indian Patent Application No. 202441050632 (2024)",
+    "A Fault-Tolerant Autonomous Legged Robotic System and a Method Thereof — Indian Patent Application No. 202641076337, filed 19.06.2026"
+  ],
+  "sources": ["resume-off.pdf — Patents", "resources/media/06-innovation/hexapod-patent-filing.png — patent office confirmation"]
+}

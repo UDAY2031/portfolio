@@ -1,0 +1,19 @@
+{
+  "id": "07-products",
+  "order": 7,
+  "title": "Products",
+  "subtitle": "AURIZE — gamified AI fitness, live on Google Play",
+  "description": "Founded and shipped a gamified fitness app with real-time exercise tracking and AI-based activity recognition, then scaled it to tens of thousands of downloads and a paying user base.",
+  "dateRange": "Mar 2026 → Present",
+  "metrics": [
+    { "label": "DOWNLOADS", "value": "23K+" },
+    { "label": "PAID USERS", "value": "150+" },
+    { "label": "MONTHLY ACTIVES", "value": "6K" }
+  ],
+  "images": [],
+  "video": null,
+  "techStack": ["Flutter", "Dart", "Firebase", "Python", "TensorFlow", "Android Studio"],
+  "links": [{ "label": "GITHUB", "url": "https://github.com/UDAY2031" }],
+  "achievements": ["400–800 daily active users", "Firebase-backed app logic with Python ML pipelines"],
+  "sources": ["resume-off.pdf — Experience (AURIZE)", "resource/Some content update aurize.txt — 23K downloads, 150+ paid users"]
+}

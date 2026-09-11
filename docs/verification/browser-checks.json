@@ -1,0 +1,212 @@
+[
+  {
+    "tier": "high",
+    "time": 20,
+    "readout": "I · APPROACH · 20.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 77,
+    "readout": "II · CROSSING · 77.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 84.5,
+    "readout": "II · CROSSING · 84.50 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 88,
+    "readout": "II · CROSSING · 88.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 102,
+    "readout": "III · FALL · 102.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 107,
+    "readout": "III · FALL · 107.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 120,
+    "readout": "IV · THE ARCHIVE · 120.00 / 345s · College"
+  },
+  {
+    "tier": "high",
+    "time": 139,
+    "readout": "IV · THE ARCHIVE · 139.00 / 345s · First Hackathon"
+  },
+  {
+    "tier": "high",
+    "time": 158,
+    "readout": "IV · THE ARCHIVE · 158.00 / 345s · Competitions"
+  },
+  {
+    "tier": "high",
+    "time": 177,
+    "readout": "IV · THE ARCHIVE · 177.00 / 345s · Recognition"
+  },
+  {
+    "tier": "high",
+    "time": 196,
+    "readout": "IV · THE ARCHIVE · 196.00 / 345s · Research"
+  },
+  {
+    "tier": "high",
+    "time": 215,
+    "readout": "IV · THE ARCHIVE · 215.00 / 345s · Innovation"
+  },
+  {
+    "tier": "high",
+    "time": 234,
+    "readout": "IV · THE ARCHIVE · 234.00 / 345s · Products"
+  },
+  {
+    "tier": "high",
+    "time": 253,
+    "readout": "IV · THE ARCHIVE · 253.00 / 345s · Systems"
+  },
+  {
+    "tier": "high",
+    "time": 272,
+    "readout": "IV · THE ARCHIVE · 272.00 / 345s · Professional"
+  },
+  {
+    "tier": "high",
+    "time": 291,
+    "readout": "IV · THE ARCHIVE · 291.00 / 345s · Future"
+  },
+  {
+    "tier": "high",
+    "time": 307,
+    "readout": "V · RELEASE · 307.00 / 345s · Future"
+  },
+  {
+    "tier": "high",
+    "time": 319,
+    "readout": "V · RELEASE · 319.00 / 345s · Future"
+  },
+  {
+    "tier": "high",
+    "time": 325,
+    "readout": "V · RELEASE · 325.00 / 345s · Future"
+  },
+  {
+    "tier": "high",
+    "time": 333,
+    "readout": "V · RELEASE · 333.00 / 345s · Future"
+  },
+  {
+    "tier": "high",
+    "time": 344.99,
+    "readout": "VI · LOOP · 344.99 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 20,
+    "readout": "I · APPROACH · 20.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 77,
+    "readout": "II · CROSSING · 77.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 84.5,
+    "readout": "II · CROSSING · 84.50 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 88,
+    "readout": "II · CROSSING · 88.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 102,
+    "readout": "III · FALL · 102.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 107,
+    "readout": "III · FALL · 107.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 120,
+    "readout": "IV · THE ARCHIVE · 120.00 / 345s · College"
+  },
+  {
+    "tier": "low",
+    "time": 139,
+    "readout": "IV · THE ARCHIVE · 139.00 / 345s · First Hackathon"
+  },
+  {
+    "tier": "low",
+    "time": 158,
+    "readout": "IV · THE ARCHIVE · 158.00 / 345s · Competitions"
+  },
+  {
+    "tier": "low",
+    "time": 177,
+    "readout": "IV · THE ARCHIVE · 177.00 / 345s · Recognition"
+  },
+  {
+    "tier": "low",
+    "time": 196,
+    "readout": "IV · THE ARCHIVE · 196.00 / 345s · Research"
+  },
+  {
+    "tier": "low",
+    "time": 215,
+    "readout": "IV · THE ARCHIVE · 215.00 / 345s · Innovation"
+  },
+  {
+    "tier": "low",
+    "time": 234,
+    "readout": "IV · THE ARCHIVE · 234.00 / 345s · Products"
+  },
+  {
+    "tier": "low",
+    "time": 253,
+    "readout": "IV · THE ARCHIVE · 253.00 / 345s · Systems"
+  },
+  {
+    "tier": "low",
+    "time": 272,
+    "readout": "IV · THE ARCHIVE · 272.00 / 345s · Professional"
+  },
+  {
+    "tier": "low",
+    "time": 291,
+    "readout": "IV · THE ARCHIVE · 291.00 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 307,
+    "readout": "V · RELEASE · 307.00 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 319,
+    "readout": "V · RELEASE · 319.00 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 325,
+    "readout": "V · RELEASE · 325.00 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 333,
+    "readout": "V · RELEASE · 333.00 / 345s · Future"
+  },
+  {
+    "tier": "low",
+    "time": 344.99,
+    "readout": "VI · LOOP · 344.99 / 345s · Future"
+  }
+]

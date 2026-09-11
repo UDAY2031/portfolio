@@ -1,0 +1,24 @@
+{
+  "time": 128,
+  "quality": "medium",
+  "width": 1600,
+  "height": 900,
+  "paused": true,
+  "samples": 296,
+  "fps": 59.144404259995596,
+  "cpuMs": {
+    "mean": 2.1733108108007424,
+    "p95": 2.699999999254942
+  },
+  "gpuMs": {
+    "mean": 11.087878885135144,
+    "p95": 12.45128
+  },
+  "averageDraws": 21,
+  "timerQueryAvailable": true,
+  "note": "Observed browser timings; hardware identity not assumed.",
+  "viewport": [
+    2560,
+    1440
+  ]
+}

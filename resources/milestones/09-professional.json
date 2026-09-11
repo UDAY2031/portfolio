@@ -1,0 +1,19 @@
+{
+  "id": "09-professional",
+  "order": 9,
+  "title": "Professional Engineering",
+  "subtitle": "Unisys — Summer Intern (Hybrid)",
+  "description": "An automated reporting pipeline for dashboard refresh and data extraction that removed manual workflows and cut effort by 70%, delivered fifteen days ahead of schedule.",
+  "dateRange": "Jul 2024 → Aug 2024",
+  "metrics": [
+    { "label": "EFFORT REDUCED", "value": "70%" },
+    { "label": "HOURS SAVED / WEEK", "value": "5+" },
+    { "label": "AHEAD OF SCHEDULE", "value": "15 days" }
+  ],
+  "images": [],
+  "video": null,
+  "techStack": ["Python", "Selenium", "WebDriver", "Power BI"],
+  "links": [],
+  "achievements": ["Fully automated end-to-end system"],
+  "sources": ["resume-off.pdf — Experience (Unisys)"]
+}

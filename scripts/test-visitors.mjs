@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';import {DatabaseSync}from'node:sqlite';import fs from'node:fs';import worker from'../workers/visitors/worker.js';
+const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync('workers/visitors/migrations/0001.sql','utf8'));
+const DB={prepare(text){return {text,values:[],bind(...values){return {text,values}},async first(){return db.prepare(text).get();}}},async batch(statements){db.exec('BEGIN IMMEDIATE');try{const results=statements.map(({text,values=[]})=>{const stmt=db.prepare(text);if(/RETURNING|^SELECT/i.test(text))return {results:stmt.all(...values)};stmt.run(...values);return {results:[]};});db.exec('COMMIT');return results;}catch(e){db.exec('ROLLBACK');throw e;}}};
+const env={DB,HASH_SECRET:'test-only-not-a-production-secret',ALLOWED_ORIGIN:'https://archive.example'};
+const request=(id,ip='192.0.2.1',ua='Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36',extra={})=>new Request('https://archive.example/api/visitors/visit',{method:'POST',headers:{origin:env.ALLOWED_ORIGIN,referer:env.ALLOWED_ORIGIN+'/film/', 'accept-language':'en-IN','user-agent':ua,'cf-connecting-ip':ip,...extra},body:JSON.stringify({id,visible:true,rendered:true,webdriver:false})});
+let results=await Promise.all(Array.from({length:50},(_,i)=>worker.fetch(request(crypto.randomUUID(),`192.0.2.${i+1}`),env).then(r=>r.json())));assert.equal(results.filter(r=>r.counted).length,50);assert.equal(db.prepare("SELECT total FROM counters").get().total,50);
+const id=crypto.randomUUID();results=await Promise.all(Array.from({length:50},()=>worker.fetch(request(id,'198.51.100.1'),env).then(r=>r.json())));assert.equal(results.filter(r=>r.counted).length,1);assert.equal(db.prepare('SELECT total FROM counters').get().total,51);
+for(const bot of ['Slackbot','facebookexternalhit','GPTBot'])assert.equal((await(await worker.fetch(request(crypto.randomUUID(),'203.0.113.1',bot),env)).json()).counted,false);
+assert.equal((await(await worker.fetch(request(crypto.randomUUID(),'203.0.113.2',undefined,{'sec-gpc':'1'}),env)).json()).counted,false);
+assert.equal((await(await worker.fetch(request(crypto.randomUUID(),'203.0.113.3',undefined,{origin:'https://other.example'}),env)).json()).counted,false);
+assert.equal((await(await worker.fetch(request(id,'198.51.100.9'),env)).json()).counted,false);
+const total=await worker.fetch(new Request('https://archive.example/api/visitors'),env);assert.equal((await total.json()).total,51);assert.match(total.headers.get('cache-control'),/max-age=30/);
+assert.equal((await worker.fetch(request(id),{})).status,503);
+console.log('PASS: 50 unique identities +50 same identity atomically counted, network/browser deduplication, bots, GPC, origin rejection, cache and unavailable backend.');

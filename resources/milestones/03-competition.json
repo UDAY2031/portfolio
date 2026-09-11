@@ -1,0 +1,18 @@
+{
+  "id": "03-competition",
+  "order": 3,
+  "title": "Competition",
+  "subtitle": "24-hour hackathons",
+  "description": "Two first places at 24+ hour hackathons in a single year — Protatva at RVITM and amBITthon at BIT.",
+  "dateRange": "2024",
+  "metrics": [{ "label": "FIRST PLACES", "value": "2" }],
+  "images": [],
+  "video": null,
+  "techStack": [],
+  "links": [],
+  "achievements": [
+    "1st place — Protatva (RVITM), 2024",
+    "1st place — amBITthon (BIT), 2024"
+  ],
+  "sources": ["resume-off.pdf — Achievements"]
+}

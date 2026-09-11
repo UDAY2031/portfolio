@@ -1,0 +1,15 @@
+{
+  "id": "01-beginning",
+  "order": 1,
+  "title": "Beginning",
+  "subtitle": "Ramaiah Institute of Technology, Bengaluru",
+  "description": "A B.E. in Artificial Intelligence & Machine Learning begins — the four years that end, in 2026, with a CGPA of 9.11.",
+  "dateRange": "Dec 2022",
+  "metrics": [{ "label": "CGPA", "value": "9.11 / 10" }],
+  "images": [],
+  "video": null,
+  "techStack": [],
+  "links": [],
+  "achievements": ["Graduated 2026 · B.E. AI & ML"],
+  "sources": ["resume-off.pdf — Education", "resource/Some content update aurize.txt — CGPA 9.11"]
+}

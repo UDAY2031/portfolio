@@ -1,0 +1,21 @@
+{
+  "id": "04-recognition",
+  "order": 4,
+  "title": "Recognition",
+  "subtitle": "Unisys Innovation Program",
+  "description": "A national-level innovation program, two years running: first runner-up in Y15, then a top-six finalist in Y16.",
+  "dateRange": "2024 → 2025",
+  "metrics": [
+    { "label": "UIP Y15", "value": "1st Runner-up" },
+    { "label": "UIP Y16", "value": "Top 6" }
+  ],
+  "images": [],
+  "video": null,
+  "techStack": [],
+  "links": [],
+  "achievements": [
+    "1st Runner-up — Unisys Innovation Program Y15 (2024)",
+    "Top 6 — Unisys Innovation Program Y16 (2025)"
+  ],
+  "sources": ["resume-off.pdf — Achievements"]
+}

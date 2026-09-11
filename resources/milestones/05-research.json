@@ -1,0 +1,27 @@
+{
+  "id": "05-research",
+  "order": 5,
+  "title": "Research",
+  "subtitle": "VisuWeave — speech into living visuals",
+  "description": "A full-stack system that turns natural language into dynamic visualizations on a canvas in under two seconds: speech-to-text, keyword extraction, multi-source image retrieval, motion-based rendering, validation. Published in Elsevier's Procedia Computer Science.",
+  "dateRange": "2025 → 2026",
+  "metrics": [
+    { "label": "LATENCY", "value": "< 2 s" },
+    { "label": "PUBLICATIONS", "value": "2" }
+  ],
+  "images": [],
+  "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/VisuWeave%20demo.mp4",
+  "techStack": ["Python", "Speech-to-Text", "NLP", "OpenCV", "GANs", "Reinforcement Learning"],
+  "links": [
+    { "label": "READ THE PAPER", "url": "https://www.sciencedirect.com/science/article/pii/S1877050926017679" }
+  ],
+  "achievements": [
+    "“VisuWeave: Dynamic Concept Visualization driven by a Novel Piston Framework” — Elsevier, Procedia Computer Science Vol. 283, pp. 535–544 (2026)",
+    "“Forecasting Future Water Requirements and Assessing Storage Capacities in Reservoirs” — Springer, ICTIS (2025)"
+  ],
+  "sources": [
+    "resume-off.pdf — Projects, Publications",
+    "https://www.sciencedirect.com/science/article/pii/S1877050926017679",
+    "old portfolio demo reel — github.com/UDAY2031/Projects_demo_UI"
+  ]
+}
