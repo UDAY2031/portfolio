@@ -1,165 +1,65 @@
-# GARGANTUA — An archive beyond time
+# GARGANTUA
 
-A scroll-driven journey through a Schwarzschild black hole and an impossible archive.
-Enter once to unlock sound. Wheel, trackpad, touch drag, or arrow/Page keys control
-forward and backward progress along an authored route. Stop to read. There is no free
-steering, pointer lock, or public developer HUD.
+A visual, interactive archive. The existing Schwarzschild raytracer and HDR post chain lead into a large shelf lattice with six physical memory rooms.
 
-## Run locally, without a build
+## Run
 
 ```sh
+npm run prepare:film
 npm run film
-# http://127.0.0.1:4173/film/index.html
 ```
 
-A generic static server can serve `public/`. Three.js and postprocessing are local
-native ES modules under `public/film/vendor/`, with their licenses. No CDN or bundler
-is needed. The existing Next.js root embeds that same entry and forwards query
-parameters; `npm run dev` and `npm run build` remain supported.
+Open `http://127.0.0.1:4173/`. Native ES modules and local Three.js require no bundler. The Next.js wrapper can also be built with `npm run build`; it statically exports the same experience.
 
-After changing data, run `npm run prepare:film` to validate and copy the manifest/media
-into `public/resources/`. This copies assets; it does not compile source.
+## Explore
 
-## Scroll, timeline, and scenes
+- Scroll to descend toward the black hole. The velocity is damped and capped; sustained deliberate input covers the approach in roughly 14 seconds. After three quiet seconds a very slow drift continues.
+- Scroll or use arrows to request the next/previous room immediately. Stay indefinitely. There are no reading locks or minimum dwell times.
+- Each room journey takes 5.5 seconds. Further input in the same direction does not accelerate it. Opposite input decelerates and reverses it. Space skips travel with a 0.8-second ease; during entry it skips to College.
+- Move the pointer to look around gently at rest. Click a book/board to advance its contents; `[` and `]` select the previous/next content surface. Click a playing monitor to reveal its project details and click again to return to the demo. Skill spines respond to hover and click.
+- Press F to fold the lattice. Sound is optional and begins after a user gesture. The score is original synthesis, not a film recording.
+- Touch devices use swipes and a landscape prompt. Orientation and tab visibility preserve journey state.
 
-`ScrollDirector` extends the existing six-act sampler. Progress, in `[0,1]`, maps to
-its time coordinate: `t = progress * duration`. Time is an editing coordinate rather
-than an autoplay promise. Ten rooms give 345 seconds of authored material. Adding a
-room adds 19 seconds and a proportional amount of scroll travel.
+## Data and authored paths
 
-| Source | Responsibility |
-| --- | --- |
-| `public/film/scroll-director.js` | Wheel-unit normalization, bounded input, touch momentum, keyboard access, frame-independent damping, idle drift and exact seeks. |
-| `public/film/director.js`, `timing.js`, `ease.js` | Pure act state, shared easing, narrative, stagger/reversal and silence gates. |
-| `public/film/maze.js` | Seeded snapped room positions, occlusion raycasts, cell-corner routes, Catmull–Rom travel, arbitrary entry faces, roll, FOV and restrained camera drift. |
-| `public/film/lattice.js`, `lattice-geometry.js` | Seven plus modules per cell, 84 boxes per cell, fixed instancing, exact six-metre wraps, distance falloff and shader folds. |
-| `public/film/tesseract.js`, `rooms.js`, `atmosphere.js` | Anchored interiors, opening portals, soft key light, strands, instanced dust and release overview. |
-| `public/film/memory.js` | Selectable DOM content, counters, links, lazy room media and progress-driven reveals. Outside all post effects. |
-| `public/film/main.js`, `post.js` | One existing WebGL renderer and HDR composer, adaptive quality, debug controls and context recovery. |
-| `public/film/audio*.js` | Original piano-like ostinato, organ pad and analytic tails; progress controls the mix and hard silence gates. |
+`resources/journey.json` is the source of truth, copied to `public/resources` by `prepare:film`. Each room has `pages`, a physical `kind` (slate, skills, monitor, report, plaque, book, patent or glass), and optional video, poster, metric and link. Data contains College, Experience, Projects, Recognition, Patents & Publications, and Present. AURIZE uses **23K+ users**. The author confirmed **two publications**.
 
-The original Schwarzschild integration and disk shader remain shared with the retained
-React `BlackHole.tsx`. The iris and star transport extend that shader. The arrival
-projects real lattice-arm endpoints into the existing starfield; its samples contract
-into amber arm shells, while the camera travels through the lattice before the first
-room. There is no second renderer, video transition, or second star particle system.
+Room `layout.position` and `layout.rotation` place its interior in world space. `travelToNext` supplies a unique spline, dominant axis, FOV, roll and look-ahead. The five current segments descend, sweep laterally, spiral upward, approach the library, and pause for a fold. Additional rooms extend the timeline automatically; author their layout and travel control points to preserve composed pacing.
 
-| Act | Ten-room authored interval |
-| --- | --- |
-| Approach | 0–70; instrumentation fades at 60–68 |
-| Crossing | 70–95; iris, true black/silence at 84, title and dissolve |
-| Fall | 95–110; radial streaks condense onto structural arms |
-| Archive | 110–300; ten rooms, each with approach, reveal, reading plateau, and departure |
-| Release | 300–340; overview of anchored rooms, releasing strands, outward dust, fading structure, distant black hole and two closing lines |
-| Loop | 340–345; black and silence, then the identical opening starfield |
+Project videos are local, silent H.264 baseline MP4s with fast-start metadata. The local server supports byte ranges. Video elements have muted/playsinline/autoplay attributes, remain attached for decoding, use `VideoTexture`, and loop independently of navigation. Posters cover failed playback. Video does not lock travel.
 
-Every visual state is sampled from progress, including folds and reverse reveals.
-The only integrated values are input progress/velocity. A slow idle advance starts
-after 2.5 seconds without input, except on a reading plateau: text stays put until
-the visitor continues. Camera drift drops to one quarter while content is present.
-Audio oscillators continue while reading; their mix follows progress, so scrolling
-backward restores the correct stem gains without restarting the music.
+## Structure
 
-## The reference and the redesign
+- `public/film/navigation.js`: approach, committed entry, immediate room agency, interruptible segments, explicit terminal OUTRO.
+- `maze.js`: authored paths, camera poses and folding beats.
+- `lattice.js`: instanced shelf masses, packed-spine shader, lit cells, superstructure and world wrapping. No freestanding emissive light rectangles.
+- `diegetic.js`, `layout.js`, `read-anchors.js`, `interaction.js`: physical content, baseline layout, native SDF typography, collision/occlusion checks and interaction.
+- `post.js`: retained HDR bloom/ACES/FXAA/grain/aberration pipeline; native-resolution text composite with room depth.
+- `dynamic-resolution.js`, `mobile.js`: gradual pixel-count adaptation and orientation/visibility preservation.
 
-Visual reference: [Hassan Syr's tesseract demo](https://dotpro-project.netlify.app/).
-Technique reference: [his making-of article](https://medium.com/@hassan.syr8810/i-spent-4-months-recreating-the-most-impossible-scene-in-interstellar-25dc6d08798a).
-Both were inspected for this revision. This implementation uses original procedural
-geometry, materials, shaders and music; no commercial source package or reference
-assets were copied.
+The final room enters OUTRO explicitly. The lattice pulls back and dissolves, then silence and the two closing lines. The black-hole scene remains hidden for the entire outro and returns only when it has completed.
 
-Before: a straight bookshelf corridor, with four-metre slices and canvas-texture
-content. After: a plus-based volume surrounding a seeded, turning route; rooms occupy
-independent world coordinates and entry faces. Lattice geometry wraps in exact `S=6`
-steps; room groups and their content never wrap. A cell-local fold sweeps outward
-using a quartic shader rotation. The plus motif and its inlaid strips are symmetric
-under a quarter-turn, avoiding a snap when the next fold starts.
+## Debug and verification
 
-A high-tier lattice contains 61,236 structural instances in **one PBR draw call**.
-Emissive inlays are part of that material, avoiding duplicated glow geometry. Medium
-uses 7³ cells; low/mobile uses 5³. Nothing is spawned during navigation. Outer rings
-lose detail in light falloff and fog, with a smooth distance envelope hiding the wrap
-boundary. Near rooms clear the surrounding structural cells to frame the interior.
-
-Full rationale and current tradeoffs: `docs/tesseract-redesign.md`.
-
-## Content and room themes
-
-Edit `resources/journey.json`; its schema is `resources/journey.schema.json`.
-Fields: `id`, `order`, `title`, `year`, `place`, `theme`, `description`, `metrics`,
-`images`, `video`, `techStack`, `links`, `accent`; optional `achievements`, `empty`,
-and source provenance. Existing resume-backed facts remain in the manifest.
-Identity and original closing text live in `resources/film.json`.
-
-Preserved design direction:
-
-> from the given web: do place the rooms at some random place and each room should
-> look different — like for projects use some different UI/UX like a computer lab /
-> tech lab or office sort. for publication / patents need to be like a library sort of.
-> for skills / info — do use the best recommendation.
-
-| Room | Theme | Reason |
-| --- | --- | --- |
-| College | `study` | A desk, reading lamp and books suggest the first place of learning. |
-| First Hackathon | `workshop` | Shared workstations place the build under pressure in a collaborative setting. |
-| Competitions | `arena` | A small display of podium-like objects recalls the competitive milestone. |
-| Recognition | `gallery` | Quiet plinths and wall exhibits frame awards without inventing branded trophies. |
-| Research | `library` | Ordered shelves and a reading desk support publications and long-form reading. |
-| Innovation | `patent-library` | The library gains a mechanical study model for the patent work. |
-| Products | `tech-lab` | Workstations and original procedural screen graphics represent shipped software. |
-| Systems | `infrastructure` | Recessed rack equipment conveys interconnected software/hardware systems. |
-| Professional | `office` | A restrained workspace focuses attention on engineering outcomes. |
-| Future | `empty` + `empty:true` | The same architectural shell, with no furniture, books or content overlay. |
-
-For a skills/info room, `study` is the default recommendation: its calm backdrop suits
-reading and groups of skills without suggesting an unsubstantiated project or award.
-Use one of the existing themes when adding a room; its path and scroll length grow
-automatically. Assets belong under `resources/media/<id>/`; the patent-filing image
-is a populated local example. External videos are optional, load on room entry, and
-seek to progress-derived frames. Failed media is hidden while all text remains usable.
-
-## Developer controls and captures
-
-- `?p=0.67826087&seed=2031` reconstructs and freezes a deterministic progress value.
-- `?t=234` remains supported for authored-time captures.
-- `?phase=archive&room=06-innovation` selects a room by id; numeric order works too.
-- `?debug=1` exposes exact progress/time, scrubber, act/room, FPS, CPU/GPU timings,
-  draw calls, instance counts, wrap offset, quality, bounds and context tools.
-- Debug only: Space/C toggles idle playback; R restarts; 1–4 jump acts; 5/D toggles
-  bounds; P previews a fold from the current progress; H hides controls; M mutes.
-- `?quality=high|medium|low` pins quality; `?idle=0` disables idle advance.
-
-Text uses a blurred `#0b0906` backing at 86% opacity. Body text is at least 16px
-(22px on the large-screen layout), independently selectable, with clickable external
-links. Long content scrolls inside the reading surface; reaching its end passes wheel
-input back to the journey. Spatial FXAA replaces history accumulation on folding
-geometry, preventing reverse-scroll ghosts. Fog and bloom remain enabled on all tiers.
-
-The entry gesture starts Web Audio. The bottom-right sound glyph is the sole permanent
-control. The score contains no film recording, sampled film music, or percussion.
-Sub-bass is restricted to the approach and cut at the horizon. All sound, including
-tails, is gated at the threshold and ending. Mute and quality preferences persist.
-
-Context loss holds progress and pause state. Restoration rebuilds GL resources at the
-same room. Reload recovery also stores the seed and normalized progress. Explicit
-capture URLs take precedence over recovery storage. The visible restore tool remains
-usable while the context is lost.
-
-## Verification and limits
+Use `?debug=1&t=125` or `?debug=1&phase=archive&room=3`. The exact-time field and scrubber are deterministic; progress and room IDs are exposed in the debug readout. `?seed=` retains deterministic procedural detail.
 
 ```sh
-npm run test:film     # 15 existing timeline checks + 11 scroll/maze checks
-npm run lint
-npm run build        # optional Next static export, not required for the film
+npm run test:film
+npm run build
 ```
 
-Evidence: `docs/verification/v3.md`. Browser checks cover every room forward/backward,
-both quality extremes, readable 1080p/4K/mobile layouts and context restoration.
-Physical trackpad/touch feel and the 60 FPS target on a specified mid-tier discrete GPU
-still require target-device acceptance; a browser benchmark is not that certification.
+Tests cover immediate room departure, 30/60/144 Hz pacing, wheel magnitudes, reverse, skip, indefinite holds, approach duration, outro isolation, orientation pause, path distinction, dynamic-resolution recovery and atomic counter behavior. `docs/research/reference-study.md` records the visual study and its sources. Browser verification artifacts are in `docs/verification/`.
 
-The inherited renderer is WebGL 2; this repository has no existing WebGPU backend to
-extend. No new WebGPU port is claimed. Interiors use procedural geometry rather than
-photogrammetry. The arrival currently transports the four dominant visible arms, not
-every distant arm. Lattice detail uses smooth light/radius falloff rather than a full
-book-atlas LOD system. These are explicit implementation limits, not hidden fallbacks.
+## Optional visitor service
+
+`workers/visitors/` contains the Cloudflare Worker, D1 migration and transaction tests. It is **not deployed or enabled by default**. Set a real database ID and allowed origin, configure `HASH_SECRET` with Wrangler secrets, apply the migration, and route `/api/visitors*` to the Worker. Set `visitorCounter: true` in `resources/film.json` only after the endpoint works.
+
+The insert trigger atomically counts accepted identities. Browser IDs are hashed; short-lived network hashes provide a backstop. Bot/preview user agents, origin checks, rate limits, DNT and GPC filtering precede counting. The client waits for four seconds of visible rendered frames. Failed requests use a cached total or hide the reading. This is an approximate browser count, not a verified count of people.
+
+When enabled, the counter stores a random first-party browser identifier and a daily salted hash derived from the network address and browser string. Application code does not store or log raw IPs. No advertising or third-party analytics are added. Ephemeral network/rate-limit rows are pruned; hashed browser deduplication tombstones remain so returning browsers are not recounted after 90 days.
+
+## Graphics scope
+
+The established WebGL2 raytracer remains the render core. The environment uses dynamic resolution while content text stays native resolution. Scene detail is held constant. Hosting improves delivery; it does not render on the visitor’s behalf or guarantee universal frame rate.
+
+The broader requested quality ceiling is not all present: there is no WebGPU port, velocity-buffer TAA, GTAO, SSR, PCSS cascade implementation, KTX2/POM asset pipeline or mastered 4K streaming fallback. Current spatial AA, camera blur and VSM travel shadows are the actual implemented features. Device-specific Safari/Firefox and physical mobile thermal testing require those devices; do not infer them from a Chromium viewport simulation.

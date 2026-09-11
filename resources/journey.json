@@ -126,6 +126,43 @@
         "Classification",
         "Clustering"
       ]
+    },
+    "layout": {
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "travelToNext": {
+      "name": "descend",
+      "dominantAxis": "y",
+      "duration": 5.5,
+      "fov": 65,
+      "roll": 4,
+      "lookAhead": 0.09,
+      "points": [
+        [
+          0,
+          -5,
+          4
+        ],
+        [
+          4,
+          -12,
+          6
+        ],
+        [
+          5,
+          -20,
+          5
+        ]
+      ]
     }
   },
   {
@@ -147,7 +184,7 @@
         "title": "AURIZE",
         "body": "Founder · Independent Project\nMar 2026 – Present\n\nGamified fitness, deployed on Google Play.\nReal-time exercise tracking and AI activity recognition.",
         "kind": "monitor",
-        "metric": "33K+ users · 6K MAU\n400–800 DAU · 200+ paid"
+        "metric": "23K+ users · 6K MAU\n400–800 DAU · 200+ paid"
       },
       {
         "title": "The engine behind it",
@@ -158,7 +195,7 @@
     "metrics": [
       {
         "label": "Users",
-        "value": 33,
+        "value": 23,
         "suffix": "K+"
       },
       {
@@ -188,7 +225,49 @@
     ],
     "links": [],
     "achievements": [],
-    "accent": "#ffc670"
+    "accent": "#ffc670",
+    "layout": {
+      "position": [
+        0,
+        -24,
+        0
+      ],
+      "rotation": [
+        0,
+        1.5707963268,
+        0
+      ]
+    },
+    "travelToNext": {
+      "name": "shelf sweep",
+      "dominantAxis": "x",
+      "duration": 5.5,
+      "fov": 65,
+      "roll": 0,
+      "lookAhead": 0.09,
+      "points": [
+        [
+          3.4,
+          -23,
+          3
+        ],
+        [
+          7,
+          -22,
+          3
+        ],
+        [
+          12,
+          -22,
+          7
+        ],
+        [
+          18,
+          -23,
+          8
+        ]
+      ]
+    }
   },
   {
     "id": "03-projects",
@@ -203,7 +282,9 @@
         "title": "VisuWeave",
         "body": "Natural language → dynamic canvas visualizations.\nA full-stack system with less than 2 seconds latency.\n\nPython · Speech-to-Text · NLP · OpenCV\nGANs · Reinforcement Learning",
         "kind": "monitor",
-        "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/VisuWeave%20demo.mp4"
+        "video": "/resources/media/03-projects/visuweave.mp4",
+        "poster": "/resources/media/03-projects/visuweave-poster.jpg",
+        "videoWebm": "/resources/media/03-projects/visuweave.webm"
       },
       {
         "title": "The visualization pipeline",
@@ -214,7 +295,9 @@
         "title": "EcoVista",
         "body": "AI waste segregation across software, IoT and mobile.\nCustom multi-class classification with YOLOv8.\nFace recognition detects littering and sends mobile alerts.\n\nPython · OpenCV · YOLOv8 · ML · Android · IoT",
         "kind": "monitor",
-        "video": "https://github.com/UDAY2031/Projects_demo_UI/raw/ddb1ae0f8929825318fb73cff6b4a60b57eb9d26/EcoVista%20demo%202.mp4"
+        "video": "/resources/media/03-projects/ecovista.mp4",
+        "poster": "/resources/media/03-projects/ecovista-poster.jpg",
+        "videoWebm": "/resources/media/03-projects/ecovista.webm"
       }
     ],
     "metrics": [],
@@ -239,7 +322,49 @@
       }
     ],
     "achievements": [],
-    "accent": "#ffc670"
+    "accent": "#ffc670",
+    "layout": {
+      "position": [
+        24,
+        -24,
+        12
+      ],
+      "rotation": [
+        0,
+        3.1415926536,
+        0
+      ]
+    },
+    "travelToNext": {
+      "name": "rising spiral",
+      "dominantAxis": "y",
+      "duration": 5.5,
+      "fov": 65,
+      "roll": 15,
+      "lookAhead": 0.09,
+      "points": [
+        [
+          30,
+          -21,
+          8
+        ],
+        [
+          32,
+          -14,
+          18
+        ],
+        [
+          25,
+          -7,
+          20
+        ],
+        [
+          21,
+          -2,
+          16
+        ]
+      ]
+    }
   },
   {
     "id": "04-recognition",
@@ -279,7 +404,44 @@
       "2 patent applications",
       "2 publications"
     ],
-    "accent": "#ffc670"
+    "accent": "#ffc670",
+    "layout": {
+      "position": [
+        24,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        -1.5707963268,
+        0
+      ]
+    },
+    "travelToNext": {
+      "name": "library traverse",
+      "dominantAxis": "x",
+      "duration": 5.5,
+      "fov": 65,
+      "roll": 0,
+      "lookAhead": 0.035,
+      "points": [
+        [
+          28,
+          1,
+          15.4
+        ],
+        [
+          36,
+          1,
+          15.4
+        ],
+        [
+          44,
+          0.7,
+          15.4
+        ]
+      ]
+    }
   },
   {
     "id": "05-research",
@@ -329,7 +491,49 @@
       }
     ],
     "achievements": [],
-    "accent": "#ffc670"
+    "accent": "#ffc670",
+    "layout": {
+      "position": [
+        48,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "travelToNext": {
+      "name": "fold",
+      "dominantAxis": "z",
+      "duration": 5.5,
+      "fov": 65,
+      "roll": 5,
+      "lookAhead": 0.09,
+      "points": [
+        [
+          51,
+          1,
+          10
+        ],
+        [
+          54,
+          6,
+          2
+        ],
+        [
+          54,
+          11,
+          -9
+        ],
+        [
+          51.4,
+          12,
+          -9
+        ]
+      ]
+    }
   },
   {
     "id": "06-present",
@@ -352,6 +556,18 @@
     "techStack": [],
     "links": [],
     "achievements": [],
-    "accent": "#ffc670"
+    "accent": "#ffc670",
+    "layout": {
+      "position": [
+        48,
+        12,
+        -12
+      ],
+      "rotation": [
+        0,
+        1.5707963268,
+        0
+      ]
+    }
   }
 ]

@@ -2,8 +2,8 @@ import * as T from 'three';
 import { clamp, ramp } from './ease.js';
 export const LAYER_TEXT=1;
 export function anchorFor(node,surface){
- const center=surface.getWorldPosition(new T.Vector3());const q=surface.getWorldQuaternion(new T.Quaternion());
- return {position:center.clone().add(new T.Vector3(0,0,4.9).applyQuaternion(q)),quaternion:q,fov:58,surfaceNormalAngle:18,frameCoverage:[.45,.65]};
+ const center=surface.getWorldPosition(new T.Vector3());const q=surface.getWorldQuaternion(new T.Quaternion());if(surface.userData.kind==='monitor')center.add(new T.Vector3(0,-.35,0).applyQuaternion(q));
+ return {position:center.clone().add(new T.Vector3(0,0,surface.userData.kind==='monitor'?5.4:4.9).applyQuaternion(q)),quaternion:q,fov:58,surfaceNormalAngle:18,frameCoverage:[.45,.65]};
 }
 export function checkAnchor(surface,camera,height=innerHeight){
  const center=surface.getWorldPosition(new T.Vector3()),q=surface.getWorldQuaternion(new T.Quaternion());
@@ -14,7 +14,7 @@ export function checkAnchor(surface,camera,height=innerHeight){
  const contrast=(.83+.05)/(.055+.05);
  return {angle,capHeight,contrast,coverage,pass:angle<=18&&capHeight>=(height<600?20:22)*height/(height<600?height:1080)&&coverage>=.45&&coverage<=.65};
 }
-// Homography maps a genuine surface quad to a DOM link, without a floating backing.
+// Project the surface foot into a compact link, updating after camera look-around.
 export function projectLink(element,surface,camera,visible){
  if(!visible){element.hidden=true;return;}
  const w=surface.userData.width,h=surface.userData.height;

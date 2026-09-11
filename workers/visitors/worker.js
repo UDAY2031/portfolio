@@ -10,7 +10,7 @@ export const sql={
 const json=(body,status=200,cached=false)=>Response.json(body,{status,headers:{'Cache-Control':cached?'public, max-age=30, stale-while-revalidate=300':'no-store','Content-Type':'application/json','X-Content-Type-Options':'nosniff'}});
 async function digest(value){const data=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));return Array.from(new Uint8Array(data),v=>v.toString(16).padStart(2,'0')).join('');}
 export function allowed(request,origin){const h=request.headers,ua=h.get('user-agent')||'';return h.get('origin')===origin&&h.get('referer')?.startsWith(origin+'/')&&!!h.get('accept-language')&&ua.length>15&&!BOT.test(ua)&&h.get('sec-gpc')!=='1'&&h.get('dnt')!=='1';}
-export default {
+const worker = {
  async fetch(request,env){
   try{
    const path=new URL(request.url).pathname;if(!env.DB||!env.HASH_SECRET)return json({available:false},503);
@@ -36,3 +36,5 @@ export default {
  },
  async scheduled(event,env,ctx){ctx.waitUntil(env.DB.batch([env.DB.prepare('DELETE FROM networks WHERE seen < ?').bind(Math.floor(Date.now()/1000)-172800),env.DB.prepare('DELETE FROM rate_limits WHERE hour < ?').bind(Math.floor(Date.now()/3600000)-48)]));}
 };
+
+export default worker;

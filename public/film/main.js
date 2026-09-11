@@ -4,6 +4,7 @@ import { NavigationController as Director } from './navigation.js';
 import { Archive } from './tesseract.js';
 import { PostPipeline } from './post.js';
 import { AudioCues } from './audio.js';
+import { Interaction } from './interaction.js';
 import { VisitorCounter } from './visitors.js';
 import { DynamicResolution } from './dynamic-resolution.js';
 import { LandscapeGuard } from './mobile.js';
@@ -12,19 +13,19 @@ import { vertex, fragment } from './shaders/black-hole.js';
 const query = new URLSearchParams(location.search), $ = id => document.getElementById(id);
 let profiler, director, renderer, archive, post, scene, camera, audio, sky, quality = 'high', lost = false, recoveryPaused = false, qualityLocked = false, started = null, bench = [], lastStamp = 0, lastStats = 0;
 const previousCamera = new T.PerspectiveCamera(55, 1, .08, 350);
-const resolution=new DynamicResolution(matchMedia('(pointer: coarse)').matches);let landscape,visitors;
+const resolution=new DynamicResolution(matchMedia('(pointer: coarse)').matches);let landscape,visitors,interaction;
 const status = $('status');
 function resize() {if(!renderer)return;renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(pointer: coarse)').matches?1.75:2));camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight,false);post.setSize(innerWidth,innerHeight,resolution.applied);sky.material.uniforms.uRes.value.set(innerWidth,innerHeight);post.temporal.reset();}
 function setQuality(){quality='high';renderer.shadowMap.enabled=true;archive.setQuality('high');post.setQuality('high');$('quality').value='high';resize();}
 
-function snapshot(s) { return { progress: director.currentProgress, seed: director.seed, wrap: archive.lattice.group.position.toArray(), t: s.t, act: s.act.name, room: director.rooms[s.room].id, reveal: s.reveal, caption: s.captionAlpha > 0 ? s.caption : '', captionAlpha: s.captionAlpha, silence: s.sound === 0, quality, renderScale:resolution.applied, frameMedian:resolution.median, orientation:landscape?.gated?'portrait':'landscape', wakeLock:!!landscape?.wake, paused: director.paused, contextLost: lost, duration: director.duration, camera: camera.position.toArray(), rotation:camera.quaternion.toArray(), navState:director.locked?'LOCKED':director.state, anchor:archive.interiors.active?.page.title, video:archive.interiors.video?{time:archive.interiors.video.el.currentTime,duration:archive.interiors.video.el.duration,paused:archive.interiors.video.el.paused,ready:archive.interiors.video.el.readyState,error:archive.interiors.video.el.error?.code}:null, contract:archive.interiors.contract, roomAnchor:archive.interiors.groups[s.room].root.position.toArray(), drawCalls: renderer.info.render.calls, instances: scene.userData.instances }; }
+function snapshot(s) { return { skyVisible:sky.visible, segment:director.segment?{u:director.segment.u,path:director.rooms[director.segment.index].travelToNext?.name}:null, progress: director.currentProgress, seed: director.seed, wrap: archive.lattice.group.position.toArray(), t: s.t, act: s.act.name, room: director.rooms[s.room].id, reveal: s.reveal, caption: s.captionAlpha > 0 ? s.caption : '', captionAlpha: s.captionAlpha, silence: s.sound === 0, quality, renderScale:resolution.applied, frameMedian:resolution.median, orientation:landscape?.gated?'portrait':'landscape', wakeLock:!!landscape?.wake, paused: director.paused, contextLost: lost, duration: director.duration, camera: camera.position.toArray(), rotation:camera.quaternion.toArray(), navState:director.locked?'LOCKED':director.state, anchor:archive.interiors.active?.page.title, video:archive.interiors.video?{time:archive.interiors.video.el.currentTime,duration:archive.interiors.video.el.duration,paused:archive.interiors.video.el.paused,ready:archive.interiors.video.el.readyState,error:archive.interiors.video.el.error?.code}:null, contract:archive.interiors.contract, layout:archive.interiors.audit, roomAnchor:archive.interiors.groups[s.room].root.position.toArray(), drawCalls: renderer.info.render.calls, instances: scene.userData.instances }; }
 function update(s) {
     camera.position.set(0, 0, 4);
     camera.quaternion.identity();
     camera.updateMatrixWorld();
     scene.fog.density = .045;
-    archive.update(s, camera, director);
-    sky.visible = s.t < 100.5 || s.r >= 15;
+    archive.update(s, camera, director);interaction?.update(s,s.dt||.016);if(director.debug&&director.state==='OUTRO'&&sky?.visible)sky.visible=false;
+    sky.visible = s.t < 100.5 && s.r < 0;
     const u = sky.material.uniforms;
     u.uTime.value = s.t;
     u.uCamDist.value = s.distance;
@@ -56,7 +57,7 @@ function update(s) {
         previousCamera.updateMatrixWorld();
     }
     post.update(s, previousCamera, director.paused);
-    $('scroll-hint').style.opacity = director.entered && director.state === 'ARRIVED' ? '.6' : '0';
+    $('entry').hidden=director.entered;$('scroll-hint').firstChild.textContent=director.state==='ARRIVED'?'SCROLL · NEXT / PREVIOUS':director.state==='TRAVELLING'?'SPACE · SKIP':'SCROLL TO DESCEND';$('scroll-hint').style.opacity=['ARRIVED','TRAVELLING','IDLE'].includes(director.state)&&performance.now()-(started||0)>2000?'.35':'0';
     $('telemetry').style.opacity = String(s.hud * .55);
     $('distance').textContent = s.distance.toFixed(3) + ' rₛ';
     $('proper').textContent = s.t.toFixed(2) + ' s';
@@ -66,7 +67,7 @@ function update(s) {
     audio.update(s, director);
     if (director.debug) {
         $('scrub').value = String(s.t);
-        $('readout').textContent = `${s.act.name} · ${s.t.toFixed(2)} / ${director.duration}s · p ${director.currentProgress.toFixed(4)} · ${director.rooms[s.room].title}`;
+        $('readout').textContent = `${s.act.name} · ${s.t.toFixed(2)} / ${director.duration}s · p ${director.currentProgress.toFixed(4)} · ${director.rooms[s.room].title} · ${director.state} · layout ${archive.interiors.audit?.pass?'PASS':'…'} · text ${archive.interiors.contract?.capHeight.toFixed(1)||'—'}px`;
         $('play').textContent = director.paused ? 'Play' : 'Pause';
         document.body.dataset.film = JSON.stringify(snapshot(s));
         if (document.activeElement !== $('progress')) $('progress').value = director.currentProgress.toFixed(6);
@@ -83,7 +84,7 @@ function frame(now) {
         update(s);
         renderer.info.reset();
         post.render();visitors?.frame(lastStamp?(now-lastStamp)/1000:0,true,s);
-        if(lastStamp&&resolution.update(now-lastStamp,(now-lastStamp)/1000,director.state==='ARRIVED'||(s.archive&&s.move>.5)))resize();
+        if(lastStamp&&resolution.update(now-lastStamp,(now-lastStamp)/1000,director.state==='ARRIVED'||(s.archive&&archive.foldTime<2)))resize();
         profiler.end(now);
         if (lastStamp && now - started < 1200)
             bench.push(now - lastStamp);
@@ -160,9 +161,9 @@ async function boot() {
     scene.traverse(o => { if (o.isInstancedMesh)
         scene.userData.instances += o.count; });
     post = new PostPipeline(renderer, scene, camera);
-    profiler = new PerformanceProbe(renderer);
+    profiler = new PerformanceProbe(renderer);interaction=new Interaction(director,archive,camera);
     audio = new AudioCues();
-    director.attach();landscape=new LandscapeGuard(director,archive.interiors,audio,resize);
+    director.onTravelStart=segment=>{segment.startPose={position:camera.position.toArray(),quaternion:camera.quaternion.toArray()};archive.interiors.stopVideo();};director.attach();landscape=new LandscapeGuard(director,archive.interiors,audio,resize);
     let saved;
     try {
         saved = localStorage.getItem('gargantua-film-quality');
@@ -176,7 +177,7 @@ async function boot() {
     $('sound-toggle').onclick = async () => { if (!audio.context) await audio.init(); audio.setMuted(!audio.muted); $('sound-toggle').setAttribute('aria-pressed', String(audio.muted)); $('sound-toggle').setAttribute('aria-label', audio.muted ? 'Unmute sound' : 'Mute sound'); $('sound-toggle').textContent = audio.muted ? '♩' : '♫'; };
     $('sound-toggle').setAttribute('aria-pressed', String(audio.muted));
     $('sound-toggle').setAttribute('aria-label', audio.muted ? 'Unmute sound' : 'Mute sound');
-    addEventListener('keydown', e => {if(e.code==='Space'&&archive.interiors.video){e.preventDefault();archive.interiors.skipVideo();}audio.resume();});
+    addEventListener('keydown', e => {if(e.key.toLowerCase()==='f'){archive.foldTime=0;archive.foldCount=(archive.foldCount||0)+1;}audio.resume();});
     const canvas = renderer.domElement;
     canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true; director.contextLost=true; recoveryPaused = director.paused; director.setPaused(true, performance.now()); audio.update(director.sample(director.t), director); post.temporal.reset(); status.textContent = 'Holding this moment. Restoring the light…'; status.hidden = false; try {
         sessionStorage.setItem('gargantua-archive-resume', JSON.stringify({progress:director.currentProgress,seed:director.seed}));
@@ -219,7 +220,7 @@ async function boot() {
         } if (k === 'p') { archive.manualFoldAt=director.t; director.paused=false; director.targetProgress=Math.min(1,(director.t+2)/director.duration); director.lastInput=performance.now(); } if (k === 'h')
             $('debug').hidden = !$('debug').hidden; post.temporal.reset(); });
     }
-    status.hidden = true;visitors=new VisitorCounter();
+    status.hidden = true;visitors=director.narrative.visitorCounter?new VisitorCounter():null;
     requestAnimationFrame(frame);
 }
-boot().catch(error => { console.error(error); status.hidden = false; status.textContent='The live archive could not start. ';const fallback=document.createElement('a');fallback.href='/resume';fallback.target='_top';fallback.textContent='Read the text version →';status.append(fallback); });
+boot().catch(error => { console.error(error); status.hidden = false; status.textContent='The archive could not start. Enable graphics acceleration, or try another browser.'; });

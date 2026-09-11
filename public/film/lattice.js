@@ -28,19 +28,21 @@ function decorate(material, uniforms, count, strip=false) {
             float radius=max(max(distanceCell.x,distanceCell.y),distanceCell.z);
             vCoverage=(1.-smoothstep(uRadius-8.,uRadius,radius))*uFormation;
             for(int ri=0;ri<${count};ri++){
-                if(distance(worldCell,uRooms[ri])<8.5) vCoverage=0.;
+                if(distance(worldCell,uRooms[ri])<10.5) vCoverage=0.;
             }
             vCoverage*=1.-smoothstep(${strip?'5.,11.':'10.,17.'},uRelease);
             vec4 mvPosition=modelViewMatrix*vec4(latticePosition,1.);
             gl_Position=projectionMatrix*mvPosition;
         `);
-        shader.fragmentShader='varying float vCoverage,vAxis;varying vec3 vLattice,vUnitPosition;uniform vec3 uEye;uniform float uEmission;\n'+shader.fragmentShader;
+        shader.fragmentShader='varying float vCoverage,vAxis;varying vec3 vLattice,vUnitPosition;uniform vec3 uEye,uLitCells[3];uniform float uEmission;\n'+shader.fragmentShader;
         shader.fragmentShader=shader.fragmentShader.replace('#include <alphatest_fragment>',`#include <alphatest_fragment>
             float coverage=vCoverage*smoothstep(.55,1.65,length(vLattice-uEye));
             float dither=fract(52.9829189*fract(dot(gl_FragCoord.xy,vec2(.06711056,.00583715))));
             if(coverage<.003)discard; diffuseColor.rgb*=coverage;
         `);
-        shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n totalEmissiveRadiance+=diffuseColor.rgb*.045;');
+        shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+float cellLight=0.;for(int ci=0;ci<3;ci++)cellLight+=1.-smoothstep(5.,8.,distance(vLattice,uLitCells[ci]));
+totalEmissiveRadiance+=vec3(1.,.73,.42)*cellLight*16.*coverage;`);
         if(!strip) shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
             // Shelf boards and tightly packed spines on all four long faces.
             // No emissive outlines: the actual area lights must reveal these surfaces.
@@ -70,7 +72,7 @@ function decorate(material, uniforms, count, strip=false) {
 export class Lattice {
     constructor(nodes, scene) {
         this.group=new T.Group();this.group.name='lattice'; scene.add(this.group);
-        this.uniforms={uFold:{value:0},uEmission:{value:0},uOffset:{value:new T.Vector3()},uEye:{value:new T.Vector3()},uFoldOrigin:{value:new T.Vector3()},uRadius:{value:27},uRelease:{value:-1},uFormation:{value:1},uRooms:{value:nodes.map(n=>n.position)}};
+        this.uniforms={uLitCells:{value:[new T.Vector3(),new T.Vector3(),new T.Vector3()]},uFold:{value:0},uEmission:{value:0},uOffset:{value:new T.Vector3()},uEye:{value:new T.Vector3()},uFoldOrigin:{value:new T.Vector3()},uRadius:{value:27},uRelease:{value:-1},uFormation:{value:1},uRooms:{value:nodes.map(n=>n.position)}};
         this.structure=decorate(new T.MeshStandardMaterial({color:'#ffffff',roughness:.72,metalness:.15}),this.uniforms,nodes.length);
         const modules=MODULES, parts=plusParts();
         const cells=[];
@@ -80,8 +82,8 @@ export class Lattice {
         this.beams=new T.InstancedMesh(new T.BoxGeometry(1,1,1),this.structure,count);
         let k=0;
         for(const cell of cells) for(const m of modules) for(const part of parts) {
-            scratch.position.set(...part.p.map((v,a)=>v+m[a]+cell[a]));
-            scratch.scale.set(...part.scale); scratch.updateMatrix(); this.beams.setMatrixAt(k,scratch.matrix);
+            scratch.position.set(...part.p.map((v,a)=>(v+m[a])*2+cell[a]));
+            scratch.scale.set(...part.scale.map(v=>v*2)); scratch.updateMatrix(); this.beams.setMatrixAt(k,scratch.matrix);
             centers.set(cell,k*3); axes[k]=part.axis; k++;
         }
         for(const mesh of [this.beams]) {
@@ -90,6 +92,11 @@ export class Lattice {
             mesh.instanceMatrix.needsUpdate=true; mesh.frustumCulled=false; this.group.add(mesh); mesh.castShadow=false; mesh.receiveShadow=true;
         }
         this.total=count;
+        const superMaterial=new T.MeshStandardMaterial({color:'#211a12',roughness:.7,metalness:.36});
+        this.super=new T.InstancedMesh(new T.BoxGeometry(1,1,1),superMaterial,54);let si=0;
+        for(let axis=0;axis<3;axis++)for(const a of [-72,-24,24])for(const b of [-24,24,72])for(const c of [-24,24]){scratch.position.set(0,0,0);scratch.position.setComponent(axis,c).setComponent((axis+1)%3,a).setComponent((axis+2)%3,b);scratch.scale.set(2.25,2.25,2.25).setComponent(axis,48);scratch.updateMatrix();this.super.setMatrixAt(si++,scratch.matrix);}
+        this.super.frustumCulled=false;this.group.add(this.super);
+
     }
     armEndpoints(camera) {
         const matrix=new T.Matrix4(), a=new T.Vector3(), b=new T.Vector3(), center=new T.Vector3(), options=[];
@@ -115,6 +122,7 @@ export class Lattice {
     update(s,camera,pose) {
         const offset=wrapOffset(camera.position.toArray());
         this.group.position.set(...offset); this.group.visible=s.archive;
+        this.super.position.set(...camera.position.toArray().map((v,i)=>Math.floor(v/48)*48-offset[i]));this.super.visible=s.r<12;
         const u=this.uniforms;
         u.uOffset.value.copy(this.group.position); u.uEye.value.copy(camera.position);
         u.uFold.value=pose.fold; u.uFoldOrigin.value.copy(camera.position);

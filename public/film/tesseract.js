@@ -24,11 +24,8 @@ export class Archive {
         const beaconMatrix=new T.Matrix4();this.rig.nodes.forEach((node,i)=>this.beacons.setMatrixAt(i,beaconMatrix.makeTranslation(...node.position.toArray())));
         this.beacons.computeBoundingSphere();this.root.add(this.beacons);
         this.panels=new T.Group();scene.add(this.panels);
-        const pm=new T.MeshBasicMaterial({color:new T.Color(1,.82,.58).multiplyScalar(7),side:T.DoubleSide});
-        for(const [x,y,z,ry] of [[-3,9,-3,.3],[6,3,-3,-.8],[-9,-9,3,1.3],[3,15,3,.4]]){
-            const panel=new T.Mesh(new T.PlaneGeometry(1.5,3.4),pm);panel.position.set(x,y,z);panel.rotation.y=ry;this.panels.add(panel);
-            const light=new T.RectAreaLight('#ffd4a4',9,1.5,3.4);light.position.copy(panel.position);light.quaternion.copy(panel.quaternion);this.panels.add(light);
-        }
+        this.litCells=[[-12,12,-24],[24,-12,-24],[-24,24,12]].map(p=>new T.Vector3(...p));
+        this.litCells.forEach(p=>{const light=new T.RectAreaLight('#ffd2a0',24,7,7);light.position.copy(p);light.lookAt(0,0,0);this.panels.add(light);});
         this.setQuality(quality);
     }
     setQuality(q) {this.quality=q;const effective='high';this.lattice.setQuality(effective);this.key.castShadow=effective==='high';this.atmosphere?.setQuality(effective);}
@@ -37,9 +34,9 @@ export class Archive {
         
         if(!s.archive){this.lattice.group.visible=false;this.key.intensity=this.area.intensity=0;return;}
         const pose=this.rig.apply(camera,s,this.reducedMotion);
-        if(this.manualFoldAt!==undefined)pose.fold=Math.max(pose.fold,ramp(s.t,this.manualFoldAt,this.manualFoldAt+1.5));
-        this.lattice.update(s,camera,pose);this.panels.position.copy(this.rig.nodes[s.room].position);this.panels.quaternion.copy(this.rig.nodes[s.room].q);
-        this.scene.fog.density=.028;
+        if(this.foldTime!==undefined){this.foldTime=Math.min(1.5,this.foldTime+(s.dt||0));pose.fold=Math.max(pose.fold,(this.foldCount-1)+ramp(this.foldTime,0,1.5));}if(this.manualFoldAt!==undefined)pose.fold=Math.max(pose.fold,ramp(s.t,this.manualFoldAt,this.manualFoldAt+1.5));
+        this.lattice.update(s,camera,pose);this.panels.position.copy(camera.position).divideScalar(48).floor().multiplyScalar(48);this.panels.quaternion.identity();this.litCells.forEach((p,i)=>this.lattice.uniforms.uLitCells.value[i].copy(p).add(this.panels.position));
+        this.scene.fog.density=.022;
         this.beacons.visible=s.r>=0; this.beacons.material.opacity=ramp(s.r,1,5)*(1-ramp(s.r,10,17));
         this.key.position.copy(camera.position).add(new T.Vector3(-2,1.4,1).applyQuaternion(camera.quaternion));
         this.key.target.position.copy(camera.position).add(new T.Vector3(0,0,-8).applyQuaternion(camera.quaternion));

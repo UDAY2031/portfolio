@@ -1,6 +1,6 @@
 export class LandscapeGuard {
  constructor(director,rooms,audio,onResize){this.director=director;this.rooms=rooms;this.audio=audio;this.onResize=onResize;this.mobile=matchMedia('(pointer: coarse)').matches;this.wake=null;this.gated=false;
-  this.overlay=document.createElement('section');this.overlay.id='rotate-prompt';this.overlay.innerHTML='<svg viewBox="0 0 80 100" aria-hidden="true"><rect x="20" y="8" width="40" height="76" rx="6"/><path d="M34 76h12"/></svg><p>ROTATE YOUR DEVICE</p><span>this archive is best experienced in landscape</span><a href="/resume" target="_top">Text version ↗</a>';document.body.append(this.overlay);
+  this.overlay=document.createElement('section');this.overlay.id='rotate-prompt';this.overlay.innerHTML='<svg viewBox="0 0 80 100" aria-hidden="true"><rect x="20" y="8" width="40" height="76" rx="6"/><path d="M34 76h12"/></svg><p>ROTATE YOUR DEVICE</p><span>this archive is best experienced in landscape</span>';document.body.append(this.overlay);
   let timer;const change=()=>{clearTimeout(timer);timer=setTimeout(()=>this.update(),300);};addEventListener('resize',change);visualViewport?.addEventListener('resize',change);matchMedia('(orientation: portrait)').addEventListener('change',change);
   document.addEventListener('visibilitychange',()=>{const hidden=document.hidden;director.lock('hidden',hidden);director.lastNow=null;if(hidden){rooms.pauseVideo();this.releaseWake();}else{if(!this.gated)rooms.resumeVideo();this.requestWake();}});this.update();
  }
